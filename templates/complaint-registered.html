@@ -10,14 +10,25 @@
     {% if form %}
       <h1> Complaint Registered </h1>
       <h3>You can access your complaint through token id {{form.token}}. </h3>
-      <p>Complaint: {{form.complaint}} <br>
-        Department: {{form.dept}}<br>
-        Registered on: {{form.date}} <br>
-        Author: {{form.author.username}}
-      </p>
+      <ul>
+        <li>Complaint: {{form.complaint}} </li>
+        <li>Department: {{form.dept}}</li>
+        <li>Stream: {{ form.stream }}</li>
+        <li>Status: {{ form.status}}</li>
+        {% if form.image %}
+          <li><a href ="../media/{{ form.image }}" >Attached Image</a></li>
+        {% endif %}
+
+        {% if form.file %}
+          <li><a href= "../media/{{ form.file }}">Attatched File</a></li>
+        {% endif %}
+        <li>Registered on: {{form.date}} </li>
+        <li>Author: {{form.author.username}}</li>
+      </ul>
        <p> !! DO NOT REFRESH THIS PAGE !! </p>
     {% else %}
-      <h1> Please go back to complaint registration page </h1>
+      <h1> Your Complaint has been registered.</h1>
+      <p> You can check it <a href="{% url 'mycomplaints' %}">Here </a></p>
     {% endif %}
     <form action="{% url 'complaint-registration' %}">
 		    <input type="submit" value="Register another"><br/>

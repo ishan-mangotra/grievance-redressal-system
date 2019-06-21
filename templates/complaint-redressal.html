@@ -10,6 +10,7 @@
 
 
   <body>
+    <h1>Complaint Resolution</h1>
         <h3>Token: {{comp.token}}</h3>
         <p>Channel: {{ comp.channel }}</p>
         <p>Department: {{comp.dept}}</p>
@@ -18,11 +19,11 @@
         <p> By {{ comp.author.username }} at {{ comp.date }}</p>
         <p>Grievance: {{ comp.complaint }} </p>
         {% if comp.image %}
-          <a href ="../media/images/{{ comp.image }}" >Attached Image</a>
+          <a href ="../media/{{ comp.image }}" >Attached Image</a>
         {% endif %}
 
         {% if comp.file %}
-          <a href= "../media/documents/{{ comp.file }}">Attatched File</a>
+          <a href= "../media/{{ comp.file }}">Attatched File</a>
         {% endif %}
 
     <form method='post'>

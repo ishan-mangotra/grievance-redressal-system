@@ -16,13 +16,13 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('register/', compviews.home, name='complaint-registration'),
+    path('register/done/', compviews.done, name='complaint-registered'),
     path('dashboard/', compviews.dashboard, name='complaint-dashboard'),
     path('mycomplaints/', compviews.mycomplaints, name='mycomplaints'),
     path('dashboard/<int:cmp_id>', compviews.redressal, name='complaint-redressal'),
     path('myprofile/', compviews.myprofile, name='myprofile'),
     path('edit/', compviews.edit, name='edit'),
     path('changepassword/', compviews.passwordchange, name='edit-password'),
-    path('done/', compviews.done, name='complaint-registered'),
     path('/', include('django.contrib.auth.urls')),
 
 

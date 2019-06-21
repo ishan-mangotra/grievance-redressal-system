@@ -9,11 +9,24 @@
   </head>
   <body>
     <h1> My Complaints </h1>
-
+    <br>
     {% for complaint in complaints %}
       <h3>Token: {{complaint.token}}</h3>
-      <p>Grievance: {{ complaint.complaint }} </p>
-      <p> By {{ complaint.author.username }} at {{ complaint.date }}</p>
+      <ul>
+        <li>Complaint: {{complaint.complaint}} </li>
+        <li>Department: {{complaint.dept}}</li>
+        <li>Stream: {{ complaint.stream }}</li>
+        <li>Status: {{ complaint.status}}</li>
+        {% if complaint.image %}
+          <li><a href ="../media/{{ complaint.image }}" >Attached Image</a></li>
+        {% endif %}
+
+        {% if complaint.file %}
+          <li><a href= "../media/{{ complaint.file }}">Attatched File</a></li>
+        {% endif %}
+        <li>Registered on: {{complaint.date}} </li>
+        <li>Author: {{complaint.author.username}}</li>
+      </ul>
       <hr>
 
     {% endfor %}

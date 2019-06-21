@@ -52,7 +52,7 @@
         <th> Grievance</th>
         <th> Channel </th>
         <th> Department </th>
-        <th> File/Image</th>
+        <th> Resolved By</th>
         <th> Registration details</th>
         <th> Status</th>
         <th> SLE Date </th>
@@ -68,7 +68,7 @@
         <td>{{ complaint.complaint }} </td>
         <td>{{ complaint.channel }} </td>
         <td>{{ complaint.dept }} </td>
-        <td>{{ complaint.image}}{{complaint.file}}</td>
+        <td>{{ complaint.resolved_by }}</td>
         <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
         <td>{{complaint.status}}</td>
         <td>{{complaint.sle_date}}</td>
@@ -85,7 +85,7 @@
         <td>{{ complaint.complaint }} </td>
         <td>{{ complaint.channel }} </td>
         <td>{{ complaint.dept }} </td>
-        <td>{{ complaint.image}}{{complaint.file}}</td>
+        <td>{{ complaint.resolved_by }}</td>
         <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
         <td>{{complaint.status}}</td>
         <td>{{complaint.sle_date}}</td>
@@ -107,7 +107,7 @@
       <td>{{ complaint.complaint }} </td>
       <td>{{ complaint.channel }} </td>
       <td>{{ complaint.dept }} </td>
-      <td>{{ complaint.image}}{{complaint.file}}</td>
+      <td>{{ complaint.resolved_by }}</td>
       <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
       <td>{{complaint.status}}</td>
       <td>{{complaint.sle_date}}</td>

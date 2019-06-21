@@ -1,6 +1,7 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404, reverse
 from django.utils import timezone, six
-from django.http import HttpResponse
+from urllib.parse import urlencode
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Complaint
 from .forms import ComplaintForm,editprofileform, complaintredressal, dashboardform
 from django.contrib.auth.models import User
@@ -44,11 +45,16 @@ def home(request):
             context.file = form.cleaned_data['file']
             #context.file = request.FILES['file']
             context.save()
-            return render(request, 'complaint-registered.html', {'form':context})
+            return redirect('done/')
 
     form = ComplaintForm()
     context = {'form':form}
     return render(request, 'complaint-register.html', context)
+#
+# @login_required
+def done(request):
+    return render(request, 'complaint-registered.html')
+
 
 @login_required
 @group_required('staff', 'manager')
@@ -129,13 +135,6 @@ def myprofile(request):
     }
     return render(request, 'profile.html', context)
 
-@login_required
-def done(request):
-    context = 0
-    content = {
-    "form": context
-        }
-    return render(request, 'complaint-registered.html', content)
 
 @group_required('manager')
 def manager(request):
@@ -239,7 +238,7 @@ def manager(request):
 def redressal(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
     if request.method == "POST":
-        form =complaintredressal(request.POST)
+        form =complaintredressal(request.POST, request.FILES)
         if form.is_valid():
             comp.status = form.cleaned_data['status']
             comp.resolution = form.cleaned_data['resolution']
