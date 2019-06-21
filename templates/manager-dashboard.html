@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+{% block content %}
+
+  <head>
+    <meta charset="utf-8">
+    <title>Manager Dashboard</title>
+  </head>
+
+  <body>
+
+    <h1> Manager Dashboard </h1>
+    <hr>
+
+    <form method='GET' action=''>
+        {% csrf_token %}
+        <!----{{ form.as_p }}-->
+        <h3>Channel</h3>
+        <select name = "c">
+          <option >All</option>
+          <option >MeeSeva</option>
+          <option >T-App Folio</option>
+          <option >T-Wallet</option>
+        </select>
+
+        <h3>Department</h3>
+        <select name = "d">
+          <option >All</option>
+          <option >Revenue</option>
+          <option >Food And Civil Supplies</option>
+          <option >GHMC</option>
+          <option >Commercial Taxes</option>
+          <option >SPDCL</option>
+          <option >NPDCL</option>
+          <option >Others</option>
+        </select>
+        <h3>Date 1</h3>
+        <input type="date" name="date1">
+        <h3>Date 2</h3>
+        <input type="date" name="date2">
+        <h3>Username</h3>
+        <input type="text" name="n">
+
+        <br>
+        <input class='button' type="submit"  value="Filter" >
+
+    </form>
+
+    <p>Total Unresolved = {{c1}}</p>
+    <p>Total Resolved = {{c2}}</p>
+
+
+    <hr>
+    <table>
+      <tr>
+        <th> Token</th>
+        <th> Grievance</th>
+        <th> Channel </th>
+        <th> Department </th>
+        <th> Resolved By</th>
+        <th> Registration details</th>
+        <th> Status</th>
+        <th> SLE Date </th>
+        <th> Resolve </th>
+
+      </tr>
+
+
+    {% for complaint in complaints_unre %}
+      {% if complaint.sle_date < dat %}
+      <tr style="color: red">
+        <td>{{complaint.token}}</td>
+        <td>{{ complaint.complaint }} </td>
+        <td>{{ complaint.channel }} </td>
+        <td>{{ complaint.dept }} </td>
+        <td>{{ complaint.resolved_by}}</td>
+        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+        <td>{{complaint.status}}</td>
+        <td>{{complaint.sle_date}}</td>
+        <td>
+          <form action="/dashboard/{{complaint.pk}}">
+            <input type="submit" value="resolve">
+          </form>
+        </td>
+
+      </tr>
+      {% else %}
+      <tr>
+        <td>{{complaint.token}}</td>
+        <td>{{ complaint.complaint }} </td>
+        <td>{{ complaint.channel }} </td>
+        <td>{{ complaint.dept }} </td>
+        <td>{{ complaint.resolved_by}}</td>
+        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+        <td>{{complaint.status}}</td>
+        <td>{{complaint.sle_date}}</td>
+        <td>
+          <form action="/dashboard/{{complaint.pk}}">
+            <input type="submit" value="resolve">
+          </form>
+        </td>
+      </tr>
+      {% endif %}
+
+    {% endfor %}
+
+    {% for complaint in complaints_re %}
+      <tr>
+
+
+      <td>{{complaint.token}}</td>
+      <td>{{ complaint.complaint }} </td>
+      <td>{{ complaint.channel }} </td>
+      <td>{{ complaint.dept }} </td>
+      <td>{{ complaint.resolved_by}}</td>
+      <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+      <td>{{complaint.status}}</td>
+      <td>{{complaint.sle_date}}</td>
+      <td> Done </td>
+
+      <tr>
+
+    {% endfor %}
+
+
+  </table>
+
+<hr>
+    <form action="{% url 'index' %}">
+        <input type="submit" value="HOME"><br/>
+    </form>
+    <footer>
+      <a>&copy; Powered by ESD </a>
+    </footer>
+  </body>
+
+{% endblock content %}
+
+</html>

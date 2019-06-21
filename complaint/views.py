@@ -34,7 +34,6 @@ def home(request):
     if request.method == "POST":
         form = ComplaintForm(request.POST, request.FILES)
         if form.is_valid():
-
             context = Complaint()
             context.author = request.user
             context.complaint = form.cleaned_data['complaint']
@@ -140,8 +139,99 @@ def done(request):
 
 @group_required('manager')
 def manager(request):
-    return render(request, 'manager.html')
+    form = dashboardform()
+    dat = timezone.now()
+    dep=request.GET.get("d")
+    cha=request.GET.get("c")
+    date1=request.GET.get("date1")
+    date2=request.GET.get("date2")
+    name=request.GET.get("n")
+    complaints_unre = Complaint.objects.filter(dept="department0",status = "unresolved")
+    complaints_re = Complaint.objects.filter(dept="department0",status ="resolved")
+    c1=len(complaints_unre)
+    c2=len(complaints_re)
 
+    if dep and cha and not name:
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved",date__range=[date1, date2])
+            complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved",date__range=[date1, date2])
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved")
+            complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved")
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+
+    if dep == "All" and cha !="All" and not name:
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(channel=cha,status = "unresolved",date__range=[date1, date2])
+            complaints_re = Complaint.objects.filter(channel=cha,status ="resolved",date__range=[date1, date2])
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(channel=cha,status = "unresolved")
+            complaints_re = Complaint.objects.filter(channel=cha,status ="resolved")
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+    if cha == "All"and dep != "All" and not name:
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(dept=dep,status = "unresolved",date__range=[date1, date2])
+            complaints_re = Complaint.objects.filter(dept=dep,status ="resolved",date__range=[date1, date2])
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(dept=dep,status = "unresolved")
+            complaints_re = Complaint.objects.filter(dept=dep,status ="resolved")
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+    if dep == "All" and cha =="All" and not name:
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(status = "unresolved",date__range=[date1, date2])
+            complaints_re = Complaint.objects.filter(status ="resolved",date__range=[date1, date2])
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(status = "unresolved")
+            complaints_re = Complaint.objects.filter(status ="resolved")
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+
+    ##################################################################################################
+
+    if dep and cha and name:
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved",date__range=[date1, date2],resolved_by=name)
+            complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved",date__range=[date1, date2],resolved_by=name)
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved",resolved_by=name)
+            complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved",resolved_by=name)
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+
+    if dep == "All" and cha !="All" and name :
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(channel=cha,status = "unresolved",date__range=[date1, date2],resolved_by=name)
+            complaints_re = Complaint.objects.filter(channel=cha,status ="resolved",date__range=[date1, date2],resolved_by=name)
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(channel=cha,status = "unresolved",resolved_by=name)
+            complaints_re = Complaint.objects.filter(channel=cha,status ="resolved",resolved_by=name)
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+    if cha == "All"and dep != "All" and name:
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(dept=dep,status = "unresolved",date__range=[date1, date2],resolved_by=name)
+            complaints_re = Complaint.objects.filter(dept=dep,status ="resolved",date__range=[date1, date2],resolved_by=name)
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(dept=dep,status = "unresolved",resolved_by=name)
+            complaints_re = Complaint.objects.filter(dept=dep,status ="resolved",resolved_by=name)
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+    if dep == "All" and cha =="All" and name:
+        if date1 and date2:
+            complaints_unre = Complaint.objects.filter(status = "unresolved",date__range=[date1, date2],resolved_by=name)
+            complaints_re = Complaint.objects.filter(status ="resolved",date__range=[date1, date2],resolved_by=name)
+        elif not (date1 and date2):
+            complaints_unre = Complaint.objects.filter(status = "unresolved",resolved_by=name)
+            complaints_re = Complaint.objects.filter(status ="resolved",resolved_by=name)
+        c1=len(complaints_unre)
+        c2=len(complaints_re)
+
+
+    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat,'c1':c1,'c2':c2}
+    return render(request, 'manager-dashboard.html', context)
 
 
 @login_required

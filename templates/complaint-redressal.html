@@ -17,9 +17,14 @@
         <p>Status: {{comp.status}}</p>
         <p> By {{ comp.author.username }} at {{ comp.date }}</p>
         <p>Grievance: {{ comp.complaint }} </p>
-        <a href= "../media/{{ comp.image }}">Attatched Image</a>
-        <p>OR</p>
-        <a href= "../media/{{ comp.file }}">Attatched File</a>
+        {% if comp.image %}
+          <a href ="../media/images/{{ comp.image }}" >Attached Image</a>
+        {% endif %}
+
+        {% if comp.file %}
+          <a href= "../media/documents/{{ comp.file }}">Attatched File</a>
+        {% endif %}
+
     <form method='post'>
         {% csrf_token %}
         {{ form.as_p }}

@@ -49,9 +49,6 @@ class Complaint(models.Model):
     stream = models.CharField(max_length = 25, choices = stream_choices, default = f1)
     image = models.ImageField(upload_to = 'images/', blank=True, null=True)
     file = models.FileField(upload_to = 'documents/', blank=True, null=True)
-    #file = models.FileField(upload_to = 'documents/', null=True, blank=True)
-#	image = models.ImageField(upload_to = 'images/', null=True, blank=True)
-#    file = models.ImageField(upload_to = 'images/', null=True, blank=True)
 
     def token(self):
         self.token = 'CMPLNOO'+str(self.id)
