@@ -149,7 +149,7 @@ def manager(request):
 def redressal(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
     if request.method == "POST":
-        form =complaintredressal(request.POST)
+        form =complaintredressal(request.POST, request.FILES)
         if form.is_valid():
             comp.status = form.cleaned_data['status']
             comp.resolution = form.cleaned_data['resolution']
