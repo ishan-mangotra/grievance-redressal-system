@@ -45,6 +45,7 @@ class Complaint(models.Model):
     status = models.CharField(max_length = 15, choices = status_choice, default = s1)
     resolution = models.CharField(max_length=1000)
     resolved_by = models.CharField(max_length = 32, default=None, blank=True, null=True)
+    assigned_to = models.CharField(max_length = 32, default=None, blank=True, null=True)
     sle_date = models.DateTimeField(default = two_days)
     stream = models.CharField(max_length = 25, choices = stream_choices, default = f1)
     image = models.ImageField(upload_to = 'images/', blank=True, null=True)

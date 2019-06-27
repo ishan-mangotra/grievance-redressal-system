@@ -1,22 +1,39 @@
 {% extends "base.html" %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 {% block content %}
   <head>
     <meta charset="utf-8">
-    <title> Welcome! </title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:500|Montserrat:300|Open+Sans|Roboto|Source+Sans+Pro:300&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h1> Welcome to Grievance Registration Portal</h1>
+    <div class="details">
+      <h1> Welcome to Grievance Registration Portal</h1>
+      <p>The grievance registration portal has been powered by ESD.
+        Simply enter any complaint you might have with regards to Mee Seva, T-App
+        or T-Wallet along with documents/attached images, if any and we will get back to you within 48 hours.</p>
+    </div>
 
-      {% if user.is_authenticated %}
+    <div class='user'>
+      <p>{% if user.is_authenticated %}
         <h3> Hello {{user.first_name}} {{user.last_name}} </h3>
-        <p>You can check your complaints here</p>
+            You can check your complaints here
         <form action = "{% url 'mycomplaints' %}">
-          <input type = "submit" value = "My Complaints"></input>
+          <button class = "submit">My Complaints</button>
         </form>
      {% endif %}
+    </p>
+    </div>
+
+    <div class='image'>
+
+    </div>
+
 
   </body>
 

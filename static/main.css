@@ -28,7 +28,8 @@ nav{
 }
 
 nav>.left{
-  margin-left: 100px;
+  left: 0;
+  margin-top: 8px;
 }
 
 nav>.right{
@@ -51,15 +52,17 @@ nav>.logo{
 nav>.left>a{
   text-decoration: none;
   color: #fafafa;
-  margin-top: 8px;
   padding: 8px;
-  overflow: none;
-  height: inherit;
+  padding-bottom: 2px;
+  margin: 2px;
   text-align: center;
+  border-bottom: solid 1px transparent;
+  transition: border-bottom 1s;
 }
-nav>.left>a>span{
-  color: #ffff00;
-  display: none;
+
+
+nav>.left>a:hover{
+  border-bottom: solid 1px #ffff00;
 }
 
 nav>.right>a{
@@ -68,6 +71,13 @@ nav>.right>a{
   padding: 8px;
   text-align: center;
 }
+
+nav>.left>a>span{
+  color: #ffff00;
+  border-bottom: solid 1px transparent;
+  transition: border-bottom 1s;
+}
+
 nav>.right>a>span{
   color: #ffff00;
 }
@@ -109,11 +119,14 @@ tr:nth-child(2n+1){
 h1{
   font-family: 'Poppins', sans-serif;
   font-size: 40px;
-  padding: 15px;
 }
 
-
-
+h3{
+  font-family: 'Poppins', sans-serif;
+  font-size: 25px;
+  padding: none;
+  margin: none;
+}
 footer{
   margin-left: 0;
   bottom:0;

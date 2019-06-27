@@ -3,7 +3,7 @@ from django.utils import timezone, six
 from urllib.parse import urlencode
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Complaint
-from .forms import ComplaintForm,editprofileform, complaintredressal, dashboardform
+from .forms import ComplaintForm,editprofileform, complaintredressal, dashboardform,managerform
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
@@ -56,15 +56,28 @@ def done(request):
     return render(request, 'complaint-registered.html')
 
 
+def staffdashboard(request):
+    dat = timezone.now()
+    complaints_unre = Complaint.objects.filter(assigned_to=request.user,status = "unresolved")
+    complaints_re = Complaint.objects.filter(assigned_to=request.user,status = "resolved")
+    context = {'complaints_unre' : complaints_unre,'complaints_re':complaints_re,"dat":dat}
+    return render(request, 'staff-dashboard.html', context)
+
 @login_required
 @group_required('staff', 'manager')
 def dashboard(request):
     form = dashboardform()
     dat = timezone.now()
+    query=User.objects.all()
     dep=request.GET.get("d")
     cha=request.GET.get("c")
+    name=request.GET.get("n")
+    cm=request.GET.get("c")
     complaints_unre = Complaint.objects.filter(dept="department0",status = "unresolved")
     complaints_re = Complaint.objects.filter(dept="department0",status ="resolved")
+    compl=Complaint.objects.filter(dept="department0",status ="resolved")
+
+
     if dep and cha:
 
         complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved")
@@ -79,7 +92,12 @@ def dashboard(request):
         complaints_unre = Complaint.objects.filter(status = "unresolved")
         complaints_re = Complaint.objects.filter(status ="resolved")
 
-    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat}
+    if name and cm:
+        Complaint.objects.filter(id=cm).update(assigned_to=name)
+
+
+
+    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat,'query':query,'name':name,'compl':compl}
     return render(request, 'complaint-dashboard.html', context)
 
 @login_required
@@ -135,16 +153,20 @@ def myprofile(request):
     }
     return render(request, 'profile.html', context)
 
-
+User=get_user_model()
 @group_required('manager')
 def manager(request):
-    form = dashboardform()
+    form = managerform()
     dat = timezone.now()
+    query=User.objects.all()
     dep=request.GET.get("d")
     cha=request.GET.get("c")
     date1=request.GET.get("date1")
     date2=request.GET.get("date2")
+
     name=request.GET.get("n")
+    if name=="All":
+        name=0
     complaints_unre = Complaint.objects.filter(dept="department0",status = "unresolved")
     complaints_re = Complaint.objects.filter(dept="department0",status ="resolved")
     c1=len(complaints_unre)
@@ -229,7 +251,7 @@ def manager(request):
         c2=len(complaints_re)
 
 
-    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat,'c1':c1,'c2':c2}
+    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat,'c1':c1,'c2':c2,'query':query}
     return render(request, 'manager-dashboard.html', context)
 
 
@@ -250,3 +272,8 @@ def redressal(request, cmp_id):
     form = complaintredressal()
 
     return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
+
+def details(request, cmp_id):
+    comp = get_object_or_404(Complaint,pk=cmp_id)
+    context = {'comp':comp}
+    return render(request, 'complaint-details.html',context)

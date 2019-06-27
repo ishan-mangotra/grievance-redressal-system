@@ -18,19 +18,13 @@ urlpatterns = [
     path('register/', compviews.home, name='complaint-registration'),
     path('register/done/', compviews.done, name='complaint-registered'),
     path('dashboard/', compviews.dashboard, name='complaint-dashboard'),
+    path('staffdashboard/',compviews.staffdashboard, name='staff-dashboard'),
+    path('manager/',compviews.manager,name='manager'),
     path('mycomplaints/', compviews.mycomplaints, name='mycomplaints'),
     path('dashboard/<int:cmp_id>', compviews.redressal, name='complaint-redressal'),
     path('myprofile/', compviews.myprofile, name='myprofile'),
     path('edit/', compviews.edit, name='edit'),
     path('changepassword/', compviews.passwordchange, name='edit-password'),
     path('/', include('django.contrib.auth.urls')),
-
-
-    # path('password_reset/', auth_views.password_reset, name='password_reset'),
-    # path('password_reset/done/', auth_views.password_reset_done, name='password_reset_done'),
-    # path('reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
-    #     auth_views.password_reset_confirm, name='password_reset_confirm'),
-    # path('reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
-    path('manager/',compviews.manager,name='manager'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

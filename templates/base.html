@@ -13,7 +13,7 @@
   </head>
   <nav>
     <a href = '{% url "index" %}'> <img src='{% static "Logo.png" %}' style="height: 66px; padding: 0; margin-top:-10px; width: 66px;"></img> </div>
-    <div class = 'left'  style="left: 35px;">
+    <div class = 'left'>
       <a href="{% url 'index' %}"><span>Home</span></a>
       <a href="{% url 'faqs' %}">FAQs</a>
       {% if user.is_authenticated %}
@@ -21,8 +21,10 @@
 
         {% if request.user|group:"staff"  %}
           <a href="{% url 'complaint-dashboard' %}">Complaint Dashboard</a>
+          <a href="{% url 'staff-dashboard' %}">Staff Dashboard</a>
         {% elif request.user|group:"manager" %}
           <a href="{% url 'complaint-dashboard' %}">Complaint Dashboard</a>
+          <a href="{% url 'staff-dashboard' %}">Staff Dashboard</a>
         {% endif %}
 
         {% if request.user|group:"manager" %}

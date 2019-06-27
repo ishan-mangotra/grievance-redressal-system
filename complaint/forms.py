@@ -33,7 +33,7 @@ f3="Data Fields"
 f4="Server Slowness"
 f5="Others"
 stream_choice = ((f1,"Application Issues"),(f2,"Payment Issues"),(f3,"Data Fields"),(f4,"Server Slowness"),(f5,"Others"))
-
+User=get_user_model()
 class ComplaintForm(forms.Form):
     channel = forms.CharField(label='Channel', widget=forms.Select(choices=channel_choice))
     dept = forms.CharField(label='Department', widget=forms.Select(choices=dept_choice))
@@ -53,6 +53,10 @@ class complaintredressal(forms.Form):
 class dashboardform(forms.Form):
 
     dept = forms.CharField(label='Department', widget=forms.Select(choices=dept_choice))
+
+class managerform(forms.Form):
+    username = forms.ModelChoiceField(queryset=User.objects.all(),required = False)
+
 
 class editprofileform(changedetails):
     """phone = forms.CharField(max_length=10)
