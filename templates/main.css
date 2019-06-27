@@ -16,15 +16,19 @@ nav{
   font-size: 20px;
   font-family: 'Source Sans Pro', sans-serif;
   position: fixed;
-  display: inline-block;
+  display: inline-flex;
   height: 45px;
+  z-index: 1000;
 }
 
+.logo{
+  width: 20px;
+  height: auto;
+  opacity: 0.5;
+}
 
 nav>.left{
-  position: absolute;
-  top: 8px;
-  left: 0;
+  margin-left: 100px;
 }
 
 nav>.right{
@@ -33,15 +37,29 @@ nav>.right{
   right: 0;
 }
 
+nav>.logo{
+  text-decoration: none;
+  position: absolute;
+  display: inline-flex;
+  top: none;
+  left: none;
+  margin: 4px;
+  color: #fafafa;
+  text-align: center;
+}
+
 nav>.left>a{
   text-decoration: none;
   color: #fafafa;
   margin-top: 8px;
   padding: 8px;
+  overflow: none;
+  height: inherit;
   text-align: center;
 }
 nav>.left>a>span{
   color: #ffff00;
+  display: none;
 }
 
 nav>.right>a{

@@ -12,7 +12,8 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script-->
   </head>
   <nav>
-    <div class = 'left'>
+    <a href = '{% url "index" %}'> <img src='{% static "Logo.png" %}' style="height: 66px; padding: 0; margin-top:-10px; width: 66px;"></img> </div>
+    <div class = 'left'  style="left: 35px;">
       <a href="{% url 'index' %}"><span>Home</span></a>
       <a href="{% url 'faqs' %}">FAQs</a>
       {% if user.is_authenticated %}
@@ -49,7 +50,7 @@
     {% endif %}
 
     {% block content%} {%endblock%}
-    
+
 
 
 </html>
