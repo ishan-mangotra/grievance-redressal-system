@@ -297,7 +297,7 @@ def sendmail(request):
 
 
 
-
+@permission_required('complaint.change_complaint')
 def details(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
     context = {'comp':comp}

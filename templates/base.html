@@ -158,7 +158,7 @@ body {
 
     {% if request.user|group:"staff" %}
       <div style="margin-top:-3%" class="hl"></div>
-      <a href="{% url 'staff-dashboard' %}">Complaint Dashboard</a>
+      <a href="{% url 'staff-dashboard' %}">Staff Dashboard</a>
     {% endif %}
 
     {% if request.user|group:"manager" %}
@@ -168,7 +168,7 @@ body {
 
     {% if request.user|group:"supportstaff" %}
       <div style="margin-top:-3%" class="hl"></div>
-      <a href="{% url 'complaint-dashboard' %}">Support Dashboard</a>
+      <a href="{% url 'complaint-dashboard' %}">Complaint Dashboard</a>
     {% endif %}
 
 
