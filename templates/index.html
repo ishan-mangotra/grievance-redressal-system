@@ -21,11 +21,19 @@
 
     <div class='user'>
       <p>{% if user.is_authenticated %}
-        <h3> Hello {{user.first_name}} {{user.last_name}} </h3>
-            You can check your complaints here
-        <form action = "{% url 'mycomplaints' %}">
-          <button class = "submit">My Complaints</button>
-        </form>
+        <h1> Hello, {{user.first_name}} {{user.last_name}} </h1>
+            You can check all of your previously registered complaints here.
+            Kindly go through the FAQs before you register a complaint.
+            <div class="buttons">
+              <form action = "{% url 'mycomplaints' %}">
+                <button class = "submit">My Complaints</button>
+              </form>
+
+              <form action="{% url 'faqs' %}">
+                <button class="submit">FAQs</button>
+              </form>
+            </div>
+
      {% endif %}
     </p>
     </div>

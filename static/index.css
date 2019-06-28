@@ -38,3 +38,7 @@ button{
 button:hover{
   cursor: pointer;
 }
+
+.buttons{
+  display: inline-flex;
+}
