@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <title>Complaint Details</title>
+  </head>
+
+
+
+  <body>
+    <h1>Complaint Details</h1>
+        <h3>Token: {{comp.token}}</h3>
+        <p>Channel: {{ comp.channel }}</p>
+        <p>Department: {{comp.dept}}</p>
+        <p>Stream: {{ comp.stream }}</p>
+        <p>Status: {{comp.status}}</p>
+        <p> By {{ comp.author.username }} at {{ comp.date }}</p>
+        <p>Grievance: {{ comp.complaint }} </p>
+        <p>Resolved by:{{comp.resolved_by}}</p>
+        <p>Resolution: {{comp.resolution}}</p>
+        {% if comp.image %}
+          <a href ="../media/{{ comp.image }}" >Attached Image</a>
+        {% endif %}
+
+        {% if comp.file %}
+          <a href= "../media/{{ comp.file }}">Attatched File</a>
+        {% endif %}
+
+
+
+
+
+  </body>
+{% endblock content %}
+
+</html>

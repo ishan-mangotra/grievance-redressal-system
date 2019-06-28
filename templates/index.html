@@ -1,48 +1,61 @@
 {% extends "base.html" %}
-{% load static %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 {% block content %}
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-    <link rel="stylesheet" href="{% static 'index.css' %}">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:500|Montserrat:300|Open+Sans|Roboto|Source+Sans+Pro:300&display=swap" rel="stylesheet">
+    <title> Welcome! </title>
+    <style type = "text/css">
+    .myButton {
+      background: #004a7d;
+      position: relative;
+      top: 20px;
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font: 12px Verdana;
+      padding: 9px 18px 9px 18px;
+      margin-left: 20px;
+      font-size: 130%;
+    }
+    .myButton2 {
+      background: #06061C;
+      position: relative;
+      top: 20px;
+      color: white;
+      border-top-left-radius: 22px;
+      border-bottom-left-radius: 22px;
+      text-decoration: none;
+      float: right;
+      font-family: Verdana;
+      padding: 17px 60px 17px 68px;
+      margin-left: 20px;
+      font-size: 135%;
+      margin-top: -2%;
+    }
+    </style>
   </head>
   <body>
-    <div class="details">
-      <h1> Welcome to Grievance Registration Portal</h1>
-      <p>The grievance registration portal has been powered by ESD.
-        Simply enter any complaint you might have with regards to Mee Seva, T-App
-        or T-Wallet along with documents/attached images, if any and we will get back to you within 48 hours.</p>
-    </div>
+    <h1> Welcome to Grievance Registration Portal</h1>
 
-    <div class='user'>
-      <p>{% if user.is_authenticated %}
-        <h1> Hello, {{user.first_name}} {{user.last_name}} </h1>
-            You can check all of your previously registered complaints here.
-            Kindly go through the FAQs before you register a complaint.
-            <div class="buttons">
-              <form action = "{% url 'mycomplaints' %}">
-                <button class = "submit">My Complaints</button>
-              </form>
-
-              <form action="{% url 'faqs' %}">
-                <button class="submit">FAQs</button>
-              </form>
-            </div>
-
+      {% if user.is_authenticated %}
+        <h3 style="margin: 20px;"> Hello {{user.first_name}} {{user.last_name}} </h3>
+        <p style="margin: 20px; font-size: 14pt;">You can check your complaints here</p>
+        <br>
+        <a href="mycomplaints" class="myButton">My Complaints</a>
+        </form>
      {% endif %}
-    </p>
-    </div>
 
-    <div class='image'>
-
-    </div>
-
-
+     <a href="#" class="myButton2">MeeSeva Portal</a>
+     <marquee style="margin-top: 5%;" behavior="scroll" direction="left">
+      <img style="margin-right: 10px;" src="../media/1.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/2.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/3.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/4.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/5.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/6.png" width="300" height="160" alt="W3docs" />
+    </marquee>
   </body>
 
 {% endblock %}

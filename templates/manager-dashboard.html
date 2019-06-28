@@ -7,6 +7,37 @@
   <head>
     <meta charset="utf-8">
     <title>Manager Dashboard</title>
+    <style>
+    table {
+      table-layout: fixed;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3%
+    }
+    td {
+      overflow:hidden;
+      text-overflow:ellipsis;
+      border:1px solid blue
+      }
+
+        tr:nth-child(even) {background-color: #79aec8}
+        tr:nth-child(odd) {background-color:#417690 }
+
+        .myButton {
+          background: #004a7d;
+          position: relative;
+          top: 20px;
+          color: white;
+          border-radius: 50px;
+          text-decoration: none;
+          font: 12px Verdana;
+          padding: 9px 15px 9px 15px;
+          margin-left: 20px;
+          font-size: 130%;
+          margin-bottom: 40px;
+        }
+      </style>
   </head>
 
   <body>
@@ -16,11 +47,11 @@
 
     <form method='GET' action=''>
         {% csrf_token %}
-        <!----{{ form.as_p }}-->
+
         <h3>Channel</h3>
         <select name = "c">
-          <option >All</option>
           <option >MeeSeva</option>
+          <option >All</option>
           <option >T-App Folio</option>
           <option >T-Wallet</option>
         </select>
@@ -40,16 +71,27 @@
         <input type="date" name="date1">
         <h3>Date 2</h3>
         <input type="date" name="date2">
-        <h3>Username</h3>
-        <input type="text" name="n">
+        <h3>Name:</h3>
+        <select name="n" >
+          <option >All</option>
+          {% for q in query%}
+          <option >{{q}}</option>
+          {% endfor%}
+        </select>
+
 
         <br>
         <input class='button' type="submit"  value="Filter" >
 
     </form>
 
-    <p>Total Unresolved = {{c1}}</p>
-    <p>Total Resolved = {{c2}}</p>
+    <p>Pending : {{c1}}</p>
+    <p>Total : {{total}}</p>
+    <p>Beyond SLA : {{c3}}</p>
+    <p>Within SLA : {{c4}}</p>
+    <p>Resolved : {{c2}}</p>
+    <p>Spam : {{c5}}</p>
+
 
 
     <hr>
@@ -118,7 +160,11 @@
       <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
       <td>{{complaint.status}}</td>
       <td>{{complaint.sle_date}}</td>
-      <td> Done </td>
+      <td>
+        <form action="/dashboard/details/{{complaint.pk}}">
+          <input type="submit" value="Details">
+        </form>
+      </td>
 
       <tr>
 

@@ -106,7 +106,9 @@ class User(PermissionsMixin, AbstractBaseUser):
 
     class Meta:
         permissions = (("can view dashboard","To open dashboard"),
-            ("can view manager level","To open manager dashboard"))
+            ("can view manager level","To open manager dashboard"),
+            ("can view staff dashboard","To open staff dashboard"))
 
 p, created = Group.objects.get_or_create(name='staff')
 p, created = Group.objects.get_or_create(name='manager')
+p, created = Group.objects.get_or_create(name='supportstaff')

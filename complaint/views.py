@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -24,10 +24,6 @@ def group_required(group, login_url=None, raise_exception=False):
             return True
         if raise_exception:
             raise PermissionDenied
-        #if group == 'staff':
-        #    user.is_staff=True
-        #elif group == 'manager':
-        #    user.is_manager=True
         return False
     return user_passes_test(check_perms, login_url=login_url)
 
@@ -45,19 +41,17 @@ def home(request):
             context.dept = form.cleaned_data['dept']
             context.image = form.cleaned_data['image']
             context.file = form.cleaned_data['file']
-            #context.file = request.FILES['file']
             context.save()
             return redirect('done/')
 
     form = ComplaintForm()
     context = {'form':form}
     return render(request, 'complaint-register.html', context)
-#
 # @login_required
 def done(request):
     return render(request, 'complaint-registered.html')
 
-
+@group_required('staff')
 def staffdashboard(request):
     dat = timezone.now()
     complaints_unre = Complaint.objects.filter(assigned_to=request.user,status = "unresolved")
@@ -66,7 +60,7 @@ def staffdashboard(request):
     return render(request, 'staff-dashboard.html', context)
 
 @login_required
-@group_required('staff', 'manager')
+@permission_required('complaint.change_complaint')
 def dashboard(request):
     form = dashboardform()
     dat = timezone.now()
@@ -258,7 +252,7 @@ def manager(request):
 
 
 @login_required
-@group_required('staff')
+@permission_required('complaint.change_complaint')
 def redressal(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
     if request.method == "POST":
@@ -277,9 +271,9 @@ def redressal(request, cmp_id):
             )
 
            # sendmail(request,mail)
-           
+
             comp.save()
-            
+
             return redirect('/dashboard')
 
     form = complaintredressal()
@@ -298,9 +292,7 @@ def sendmail(request):
         fail_silently=False,
     )
     return redirect('/dashboard')
-
     form = complaintredressal()
-
     return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
 
 
