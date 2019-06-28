@@ -16,20 +16,15 @@ nav{
   font-size: 20px;
   font-family: 'Source Sans Pro', sans-serif;
   position: fixed;
-  display: inline-flex;
+  display: inline-block;
   height: 45px;
-  z-index: 1000;
 }
 
-.logo{
-  width: 20px;
-  height: auto;
-  opacity: 0.5;
-}
 
 nav>.left{
+  position: absolute;
+  top: 8px;
   left: 0;
-  margin-top: 8px;
 }
 
 nav>.right{
@@ -38,31 +33,15 @@ nav>.right{
   right: 0;
 }
 
-nav>.logo{
-  text-decoration: none;
-  position: absolute;
-  display: inline-flex;
-  top: none;
-  left: none;
-  margin: 4px;
-  color: #fafafa;
-  text-align: center;
-}
-
 nav>.left>a{
   text-decoration: none;
   color: #fafafa;
+  margin-top: 8px;
   padding: 8px;
-  padding-bottom: 2px;
-  margin: 2px;
   text-align: center;
-  border-bottom: solid 1px transparent;
-  transition: border-bottom 1s;
 }
-
-
-nav>.left>a:hover{
-  border-bottom: solid 1px #ffff00;
+nav>.left>a>span{
+  color: #ffff00;
 }
 
 nav>.right>a{
@@ -71,13 +50,6 @@ nav>.right>a{
   padding: 8px;
   text-align: center;
 }
-
-nav>.left>a>span{
-  color: #ffff00;
-  border-bottom: solid 1px transparent;
-  transition: border-bottom 1s;
-}
-
 nav>.right>a>span{
   color: #ffff00;
 }
@@ -96,9 +68,6 @@ table{
 td, tr, td{
   left: 2px;
 }
-
-tr:nth-child(2n+1){
-  background-color: #f2f2f2;
 }
 .button, button{
   background-color: #f2f2f2;
@@ -119,14 +88,11 @@ tr:nth-child(2n+1){
 h1{
   font-family: 'Poppins', sans-serif;
   font-size: 40px;
+  padding: 15px;
 }
 
-h3{
-  font-family: 'Poppins', sans-serif;
-  font-size: 25px;
-  padding: none;
-  margin: none;
-}
+
+
 footer{
   margin-left: 0;
   bottom:0;
@@ -145,4 +111,84 @@ footer>a{
   text-align: center;
   text-decoration: none;
   color: inherit;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  margin : 0 auto;
+  background-color: #bdc3c7;
+
+}
+
+hr.linestyle {
+    border: 0 solid white;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+}
+
+.heading{
+  padding: -10px 0px -30px -10px;
+  margin-bottom: 1px;
+  font-family:verdana;
+  font-size:160%;
+  background-color: #06061C;
+  color:#818181;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #004A7D;
+  padding-top: -10px;
+}
+
+.topnav a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+  background: #004A7D;
+}
+
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+  background: #06061C;
+
+}
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  background: #06061C;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 200px;
+  padding-left: 50px ;/* Same as the width of the sidenav */
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
