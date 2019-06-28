@@ -7,6 +7,38 @@
   <head>
     <meta charset="utf-8">
     <title>Complaint Dashboard</title>
+    <style>
+table {
+  table-layout: fixed;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 50px;
+}
+td {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  border:1px solid blue
+  }
+  tr:nth-child(even) {background-color: #79aec8}
+  tr:nth-child(odd) {background-color:#417690 }
+
+  .myButton {
+    background: #004a7d;
+    position: relative;
+    top: 20px;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font: 12px Verdana;
+    padding: 9px 15px 9px 15px;
+    margin-left: 20px;
+    font-size: 130%;
+  }
+  hr{
+        margin-top: 25px;
+      }
+</style>
   </head>
 
   <body>
@@ -37,7 +69,7 @@
           <option >Others</option>
         </select>
         <br>
-        <input class='button' type="submit"  value="Filter" >
+        <input class='myButton' type="submit"  value="Filter" >
 
     </form>
 
@@ -96,7 +128,7 @@
 
                 </select>
                 <input type="submit" value="assign">
-
+                <br>
           </form>
       </td>
 
@@ -142,7 +174,8 @@
       {% endif %}
 
     {% endfor %}
-
+  </table>
+  <table>
     {% for complaint in complaints_re %}
       <tr>
 
@@ -170,7 +203,7 @@
 
 <hr>
     <form action="{% url 'index' %}">
-        <input type="submit" value="HOME"><br/>
+        <input style="margin-bottom: 70px;" type="submit" class="myButton" value="HOME"><br/>
     </form>
 
   </body>

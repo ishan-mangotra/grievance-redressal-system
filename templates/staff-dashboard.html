@@ -6,6 +6,34 @@
   <head>
     <meta charset="utf-8">
     <title>Staff Dashboard</title>
+    <style>
+table {
+  table-layout: fixed;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+td {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  border:1px solid blue
+  }
+  tr:nth-child(even) {background-color: #79aec8}
+  tr:nth-child(odd) {background-color:#417690 }
+
+  .myButton {
+    background: #004a7d;
+    position: relative;
+    top: 20px;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font: 12px Verdana;
+    padding: 9px 15px 9px 15px;
+    margin-left: 20px;
+    font-size: 130%;
+  }
+</style>
   </head>
   <body>
     <h1>Staff Dashboard </h1>
@@ -92,11 +120,11 @@
     </table>
 
     <form action="{% url 'complaint-registration' %}">
-  	    <input type="submit" value="Register Complaint"><br/>
+  	    <input type="submit"  class="myButton" value="Register Complaint"><br/>
     </form>
 
     <form action="{% url 'index' %}">
-        <input type="submit" value="HOME"><br/>
+        <input style="margin-top: 25px;" type="submit"  class="myButton" value="HOME"><br/>
     </form>
 
   </body>

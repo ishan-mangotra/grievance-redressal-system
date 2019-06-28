@@ -6,15 +6,28 @@
   <head>
     <meta charset="utf-8">
     <title> FAQs </title>
+    <style type = "text/css">
+.myButton {
+  background: #004a7d;
+  position: relative;
+  top: 20px;
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+  font: 12px Verdana;
+  padding: 9px 15px 9px 15px;
+  margin-left: 20px;
+  font-size: 130%;
+}
+</style>
   </head>
   <body>
     <h1> Welcome to FAQs </h1>
 
-    <form action = "{% url 'index' %}">
-      <input type = "submit" value = "HOME"></input>
+    <a href= "/" class="myButton">Home</a>
     </form>
 
-  
+
   </body>
 
 {% endblock %}

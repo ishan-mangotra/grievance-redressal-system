@@ -6,6 +6,20 @@
   <head>
     <meta charset="utf-8">
     <title>My Complaints</title>
+    <style type = "text/css">
+  .myButton {
+    background: #004a7d;
+    position: relative;
+    top: 20px;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font: 12px Verdana;
+    padding: 9px 15px 9px 15px;
+    margin-left: 20px;
+    font-size: 130%;
+  }
+  </style>
   </head>
   <body>
 
@@ -21,8 +35,8 @@
     <p> Mandal: {{details.mandal}} </p>
     <p> District: {{details.district}} </p>
     <p> Pincode: {{details.pincode}} </p>
-    <a href="{% url 'edit' %}">Edit profile</a> <br>
-    <a href ="{% url 'edit-password' %}">Change Password</a>
+    <a href="edit" class="myButton">Edit profile</a>
+    <a href ="edit-password" class="myButton">Change Password</a>
 
     <hr>
   </body>

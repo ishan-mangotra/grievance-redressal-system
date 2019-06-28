@@ -57,7 +57,7 @@ def home(request):
 def done(request):
     return render(request, 'complaint-registered.html')
 
-
+@group_required('staff')
 def staffdashboard(request):
     dat = timezone.now()
     complaints_unre = Complaint.objects.filter(assigned_to=request.user,status = "unresolved")
@@ -66,7 +66,7 @@ def staffdashboard(request):
     return render(request, 'staff-dashboard.html', context)
 
 @login_required
-@group_required('staff', 'manager')
+@group_required('supportstaff', 'manager')
 def dashboard(request):
     form = dashboardform()
     dat = timezone.now()
@@ -258,7 +258,7 @@ def manager(request):
 
 
 @login_required
-@group_required('staff')
+@group_required('staff', 'manager', 'supportstaff')
 def redressal(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
     if request.method == "POST":
@@ -277,9 +277,9 @@ def redressal(request, cmp_id):
             )
 
            # sendmail(request,mail)
-           
+
             comp.save()
-            
+
             return redirect('/dashboard')
 
     form = complaintredressal()

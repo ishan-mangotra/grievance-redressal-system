@@ -6,18 +6,56 @@
   <head>
     <meta charset="utf-8">
     <title> Welcome! </title>
+    <style type = "text/css">
+    .myButton {
+      background: #004a7d;
+      position: relative;
+      top: 20px;
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font: 12px Verdana;
+      padding: 9px 18px 9px 18px;
+      margin-left: 20px;
+      font-size: 130%;
+    }
+    .myButton2 {
+      background: #06061C;
+      position: relative;
+      top: 20px;
+      color: white;
+      border-top-left-radius: 22px;
+      border-bottom-left-radius: 22px;
+      text-decoration: none;
+      float: right;
+      font-family: Verdana;
+      padding: 17px 60px 17px 68px;
+      margin-left: 20px;
+      font-size: 135%;
+      margin-top: -2%;
+    }
+    </style>
   </head>
   <body>
     <h1> Welcome to Grievance Registration Portal</h1>
 
       {% if user.is_authenticated %}
-        <h3> Hello {{user.first_name}} {{user.last_name}} </h3>
-        <p>You can check your complaints here</p>
-        <form action = "{% url 'mycomplaints' %}">
-          <input type = "submit" value = "My Complaints"></input>
+        <h3 style="margin: 20px;"> Hello {{user.first_name}} {{user.last_name}} </h3>
+        <p style="margin: 20px; font-size: 14pt;">You can check your complaints here</p>
+        <br>
+        <a href="mycomplaints" class="myButton">My Complaints</a>
         </form>
      {% endif %}
 
+     <a href="#" class="myButton2">MeeSeva Portal</a>
+     <marquee style="margin-top: 5%;" behavior="scroll" direction="left">
+      <img style="margin-right: 10px;" src="../media/1.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/2.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/3.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/4.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/5.png" width="300" height="160" alt="W3docs" />
+      <img style="margin-right: 10px;" src="../media/6.png" width="300" height="160" alt="W3docs" />
+    </marquee>
   </body>
 
 {% endblock %}
