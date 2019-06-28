@@ -135,10 +135,10 @@ LOGOUT_URL = 'logout'
 #MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 
 # #To email the client their forgot password link
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = "esdgrievance@gmail.com"
-# EMAIL_HOST_PASSWORD = "esd@telwap"
-# EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "esdgrievance@gmail.com"
+EMAIL_HOST_PASSWORD = "esd@telwap"
+EMAIL_PORT = 587
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

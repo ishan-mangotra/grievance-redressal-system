@@ -6,6 +6,11 @@ from users import views as userviews
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from complaint.views import redressal, sendmail
+
+
+
+
 
 urlpatterns = [
     path('complaint/', include('complaint.urls')),
@@ -26,5 +31,6 @@ urlpatterns = [
     path('edit/', compviews.edit, name='edit'),
     path('changepassword/', compviews.passwordchange, name='edit-password'),
     path('/', include('django.contrib.auth.urls')),
+    path('sendmail/', compviews.sendmail, name='sendmail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

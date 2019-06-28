@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required, user_passes_test
 
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
 
 def group_required(group, login_url=None, raise_exception=False):
@@ -265,13 +267,44 @@ def redressal(request, cmp_id):
             comp.status = form.cleaned_data['status']
             comp.resolution = form.cleaned_data['resolution']
             comp.resolved_by = request.user.username
+            mail=comp.author.email
+            send_mail(
+            'Grievance',
+            'Your Grievance is resolved!',
+            'esdgrievance@gmail.com',
+            [mail],
+            fail_silently=False,
+            )
 
+           # sendmail(request,mail)
+           
             comp.save()
+            
             return redirect('/dashboard')
 
     form = complaintredressal()
 
     return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
+
+
+def sendmail(request):
+    mail='esdgrievance@gmail.com'
+    m=mail
+    send_mail(
+        'Grievance',
+        'Your Grievance is resolved!',
+        'esdgrievance@gmail.com',
+        [m],
+        fail_silently=False,
+    )
+    return redirect('/dashboard')
+
+    form = complaintredressal()
+
+    return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
+
+
+
 
 def details(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
