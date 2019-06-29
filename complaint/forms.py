@@ -47,7 +47,7 @@ class ComplaintForm(forms.Form):
 
 class complaintredressal(forms.Form):
 
-    resolution = forms.CharField(max_length=1000)
+    resolution = forms.CharField(max_length=1000, widget=forms.TextInput(attrs={'class': "input"}),)
     status = forms.CharField(label='Status', widget=forms.Select(choices=status_choice))
 
 class dashboardform(forms.Form):

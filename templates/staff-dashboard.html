@@ -12,6 +12,8 @@ table {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
+  cell-padding:10px;
 }
 td {
   overflow:hidden;
@@ -41,7 +43,7 @@ td {
     <table>
         <tr>
           <th> Token</th>
-          <th> Grievance</th>
+          <!-- <th> Grievance</th> -->
           <th> Channel </th>
           <th> Department </th>
           <th> Resolved By</th>
@@ -58,7 +60,7 @@ td {
         {% if complaint.sle_date < dat %}
         <tr style="color: red">
           <td>{{complaint.token}}</td>
-          <td>{{ complaint.complaint }} </td>
+          <!-- <td>{{ complaint.complaint }} </td> -->
           <td>{{ complaint.channel }} </td>
           <td>{{ complaint.dept }} </td>
           <td>{{ complaint.resolved_by }}</td>
@@ -76,7 +78,7 @@ td {
         {% else %}
         <tr>
           <td>{{complaint.token}}</td>
-          <td>{{ complaint.complaint }} </td>
+          <!-- <td>{{ complaint.complaint }} </td> -->
           <td>{{ complaint.channel }} </td>
           <td>{{ complaint.dept }} </td>
           <td>{{ complaint.resolved_by }}</td>
@@ -99,7 +101,7 @@ td {
 
 
         <td>{{complaint.token}}</td>
-        <td>{{ complaint.complaint }} </td>
+        <!-- <td>{{ complaint.complaint }} </td> -->
         <td>{{ complaint.channel }} </td>
         <td>{{ complaint.dept }} </td>
         <td>{{ complaint.resolved_by }}</td>

@@ -3,7 +3,8 @@ body
   padding: 0;
   margin-top: 13px;
   margin-left: 0px;
-  background-color: #fafafa;
+  font-family: "Lato", sans-serif;
+  background-color: #fff;
   font-size: 20px;
 }
 
@@ -111,13 +112,6 @@ footer>a{
   text-align: center;
   text-decoration: none;
   color: inherit;
-}
-
-body {
-  font-family: "Lato", sans-serif;
-  margin : 0 auto;
-  background-color: #bdc3c7;
-
 }
 
 hr.linestyle {

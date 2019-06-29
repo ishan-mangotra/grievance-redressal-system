@@ -9,54 +9,177 @@
     <title>Manager Dashboard</title>
     <style>
     table {
-      table-layout: fixed;
-      width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-bottom: 3%
+     table-layout: fixed;
+     width: 100%;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     margin-bottom: 3%
+   }
+   td {
+     overflow:hidden;
+     text-overflow:ellipsis;
+     border:1px solid blue
+     }
+
+       tr:nth-child(even) {background-color: #79aec8}
+       tr:nth-child(odd) {background-color:#417690 }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
-    td {
-      overflow:hidden;
-      text-overflow:ellipsis;
-      border:1px solid blue
-      }
+    .container {
+      text-align: center;
+  padding: 2px 16px;
+}
+.palate{
+  height: 160px;
+  width: 100%;
+  display: flex;
+}
+.number{
+  width: 50%;
+  test-align: center;
+  background: #eb6213;
+  box-shadow: 2px 4px 10px 3px #eb6213;
+  padding: 1px;
+  margin-top: 5%;
+  color: #fff;
+  margin-left: 25%;
+  border-radius: 10px;
 
-        tr:nth-child(even) {background-color: #79aec8}
-        tr:nth-child(odd) {background-color:#417690 }
+}
 
-        .myButton {
-          background: #004a7d;
-          position: relative;
-          top: 20px;
-          color: white;
-          border-radius: 50px;
-          text-decoration: none;
-          font: 12px Verdana;
-          padding: 9px 15px 9px 15px;
-          margin-left: 20px;
-          font-size: 130%;
-          margin-bottom: 40px;
-        }
-      </style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 15%;
+  text-align: center;;
+  /* padding-top: 10px; */
+  float: left;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+form{
+  display: inline-block;
+}
+
+    </style>
   </head>
 
   <body>
 
     <h1> Manager Dashboard </h1>
     <hr>
+    <div class = 'palate'>
+    <div class="card">
+      <div class="number" style="background: #008ae6; box-shadow: 2px 4px 10px 3px #008ae6;">
+        <p><strong>
+          {% if total %}
+            {{total}}
+          {% else %}
+            0
+          {% endif %}
+        </strong></p>
+      </div>
+      <div class="container">
+        <h4><b>Total</b></h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="number" style="background: #00b300; box-shadow: 2px 4px 10px 3px #00b300;">
+        <p><strong>
+          {% if c2 %}
+            {{c2}}
+          {% else %}
+            0
+          {% endif %}
+        </strong></p>
+      </div>
+      <div class="container">
+        <h4><b>Resolved</b></h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="number">
+        <p><strong>
+          {% if c1 %}
+            {{c1}}
+          {% else %}
+            0
+          {% endif %}
+        </strong></p>
+      </div>
+      <div class="container">
+        <h4><b>Pending</b></h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="number" style="background: #cc2900; box-shadow: 2px 4px 10px 3px #cc2900;">
+        <p><strong>
+          {% if c3 %}
+            {{c3}}
+          {% else %}
+            0
+          {% endif %}
+        </strong></p>
+      </div>
+      <div class="container">
+        <h4><b>Beyond SLE</b></h4>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="number" style="background: #b30059; box-shadow: 2px 4px 10px 3px #b30059;">
+        <p><strong>
+          {% if total %}
+            {{total}}
+          {% else %}
+            0
+          {% endif %}
+        </strong></p>
+      </div>
+      <div class="container">
+        <h4><b>Within SLE</b></h4>
+      </div>
+    </div>
+
+
+
+    <div class="card">
+      <div class="number" style="background: #ffff00; box-shadow: 2px 4px 10px 3px #ffff00;">
+        <p><strong>
+          {% if c5 %}
+            {{c5}}
+          {% else %}
+            0
+          {% endif %}
+        </strong></p>
+      </div>
+      <div class="container">
+        <h4><b>Spam</b></h4>
+      </div>
+    </div>
+  </div>
+
+
+<hr>
 
     <form method='GET' action=''>
         {% csrf_token %}
 
-        <h3>Channel</h3>
+        <strong>Channel:</strong>
         <select name = "c">
-          <option >MeeSeva</option>
           <option >All</option>
+          <option >MeeSeva</option>
           <option >T-App Folio</option>
           <option >T-Wallet</option>
         </select>
 
-        <h3>Department</h3>
+        <strong>Department:</strong>
         <select name = "d">
           <option >All</option>
           <option >Revenue</option>
@@ -67,119 +190,109 @@
           <option >NPDCL</option>
           <option >Others</option>
         </select>
-        <h3>Date 1</h3>
+
+        <strong>From:</strong>
         <input type="date" name="date1">
-        <h3>Date 2</h3>
+
+        <strong>To:</strong>
         <input type="date" name="date2">
-        <h3>Name:</h3>
+
+        <strong>User:</strong>
         <select name="n" >
           <option >All</option>
           {% for q in query%}
           <option >{{q}}</option>
           {% endfor%}
         </select>
-
-
         <br>
         <input class='button' type="submit"  value="Filter" >
 
     </form>
 
-    <p>Pending : {{c1}}</p>
-    <p>Total : {{total}}</p>
-    <p>Beyond SLA : {{c3}}</p>
-    <p>Within SLA : {{c4}}</p>
-    <p>Resolved : {{c2}}</p>
-    <p>Spam : {{c5}}</p>
+
 
 
 
     <hr>
     <table>
-      <tr>
-        <th> Token</th>
-        <th> Grievance</th>
-        <th> Channel </th>
-        <th> Department </th>
-        <th> Resolved By</th>
-        <th> Registration details</th>
-        <th> Status</th>
-        <th> SLE Date </th>
-        <th> Resolve </th>
+       <tr>
+         <th> Token</th>
+         <th> Channel </th>
+         <th> Department </th>
+         <th> Resolved By</th>
+         <th> Registration details</th>
+         <th> Status</th>
+         <th> SLE Date </th>
+         <th> Resolve </th>
 
-      </tr>
-
-
-    {% for complaint in complaints_unre %}
-      {% if complaint.sle_date < dat %}
-      <tr style="color: red">
-        <td>{{complaint.token}}</td>
-        <td>{{ complaint.complaint }} </td>
-        <td>{{ complaint.channel }} </td>
-        <td>{{ complaint.dept }} </td>
-        <td>{{ complaint.resolved_by}}</td>
-        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
-        <td>{{complaint.status}}</td>
-        <td>{{complaint.sle_date}}</td>
-        <td>
-          <form action="/dashboard/{{complaint.pk}}">
-            <input type="submit" value="resolve">
-          </form>
-        </td>
-
-      </tr>
-      {% else %}
-      <tr>
-        <td>{{complaint.token}}</td>
-        <td>{{ complaint.complaint }} </td>
-        <td>{{ complaint.channel }} </td>
-        <td>{{ complaint.dept }} </td>
-        <td>{{ complaint.resolved_by}}</td>
-        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
-        <td>{{complaint.status}}</td>
-        <td>{{complaint.sle_date}}</td>
-        <td>
-          <form action="/dashboard/{{complaint.pk}}">
-            <input type="submit" value="resolve">
-          </form>
-        </td>
-      </tr>
-      {% endif %}
-
-    {% endfor %}
-
-    {% for complaint in complaints_re %}
-      <tr>
+       </tr>
 
 
-      <td>{{complaint.token}}</td>
-      <td>{{ complaint.complaint }} </td>
-      <td>{{ complaint.channel }} </td>
-      <td>{{ complaint.dept }} </td>
-      <td>{{ complaint.resolved_by}}</td>
-      <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
-      <td>{{complaint.status}}</td>
-      <td>{{complaint.sle_date}}</td>
-      <td>
-        <form action="/dashboard/details/{{complaint.pk}}">
-          <input type="submit" value="Details">
-        </form>
-      </td>
+     {% for complaint in complaints_unre %}
+       {% if complaint.sle_date < dat %}
+       <tr style="color: red">
+         <td>{{complaint.token}}</td>
+         <td>{{ complaint.channel }} </td>
+         <td>{{ complaint.dept }} </td>
+         <td>{{ complaint.resolved_by}}</td>
+         <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+         <td>{{complaint.status}}</td>
+         <td>{{complaint.sle_date}}</td>
+         <td>
+           <form action="/dashboard/{{complaint.pk}}">
+             <input class="resolvebutton" type="submit" value="resolve">
+           </form>
+         </td>
 
-      <tr>
+       </tr>
+       {% else %}
+       <tr>
+         <td>{{complaint.token}}</td>
+         <td>{{ complaint.channel }} </td>
+         <td>{{ complaint.dept }} </td>
+         <td>{{ complaint.resolved_by}}</td>
+         <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+         <td>{{complaint.status}}</td>
+         <td>{{complaint.sle_date}}</td>
+         <td>
+           <form action="/dashboard/{{complaint.pk}}">
+             <input class="resolvebutton"type="submit" value="resolve">
+           </form>
+         </td>
+       </tr>
+       {% endif %}
 
-    {% endfor %}
+     {% endfor %}
+
+     {% for complaint in complaints_re %}
+       <tr>
 
 
-  </table>
+       <td>{{complaint.token}}</td>
+       <td>{{ complaint.channel }} </td>
+       <td>{{ complaint.dept }} </td>
+       <td>{{ complaint.resolved_by}}</td>
+       <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+       <td>{{complaint.status}}</td>
+       <td>{{complaint.sle_date}}</td>
+       <td> <form action="/dashboard/details/{{complaint.pk}}">
+           <input class="resolvebutton"type="submit" value="Details">
+         </form> </td>
+
+       <tr>
+
+     {% endfor %}
+
+
+   </table>
 
 <hr>
     <form action="{% url 'index' %}">
         <input type="submit" value="HOME"><br/>
     </form>
-    <footer>
+    <!-- <footer>
       <a>&copy; Powered by ESD </a>
-    </footer>
+    </footer> -->
   </body>
 
 {% endblock content %}

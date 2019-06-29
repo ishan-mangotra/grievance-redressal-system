@@ -14,11 +14,15 @@ table {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 50px;
+  padding: 50px;
+  text-align: center;
+  cell-padding:10px;
 }
 td {
   overflow:hidden;
   text-overflow:ellipsis;
-  border:1px solid blue
+  border:1px solid blue;
+
   }
   tr:nth-child(even) {background-color: #79aec8}
   tr:nth-child(odd) {background-color:#417690 }
@@ -38,6 +42,12 @@ td {
   hr{
         margin-top: 25px;
       }
+
+
+      form{
+        display: inline-block;
+        font-size: 18px;
+      }
 </style>
   </head>
 
@@ -49,7 +59,7 @@ td {
     <form method='GET' action=''>
         {% csrf_token %}
         <!----{{ form.as_p }}-->
-        <h3>Channel</h3>
+        <strong>Channel</strong>
         <select name = "c">
           <option >All</option>
           <option >MeeSeva</option>
@@ -57,7 +67,7 @@ td {
           <option >T-Wallet</option>
         </select>
 
-        <h3>Department</h3>
+        <strong>Department</strong>
         <select name = "d">
           <option >All</option>
           <option >Revenue</option>
@@ -68,8 +78,7 @@ td {
           <option >NPDCL</option>
           <option >Others</option>
         </select>
-        <br>
-        <input class='myButton' type="submit"  value="Filter" >
+        <input class='button' type="submit"  value="Filter" >
 
     </form>
 
@@ -78,13 +87,12 @@ td {
     <hr>
     <table>
       <tr>
-        <th> Token</th>
-        <th> Grievance</th>
+        <th > Token</th>
+        <!-- <th> Grievance</th> -->
         <th> Channel </th>
         <th> Department </th>
         <th> Resolved By</th>
         <th> Registration details</th>
-        <th> Status</th>
         <th> SLE Date </th>
         <th> Resolve </th>
         <th> Assigned to</th>
@@ -97,12 +105,11 @@ td {
       {% if complaint.sle_date < dat %}
       <tr style="color: red">
         <td>{{complaint.token}}</td>
-        <td>{{ complaint.complaint }} </td>
+        <!-- <td>{{ complaint.complaint }} </td> -->
         <td>{{ complaint.channel }} </td>
         <td>{{ complaint.dept }} </td>
         <td>{{ complaint.resolved_by }}</td>
         <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
-        <td>{{complaint.status}}</td>
         <td>{{complaint.sle_date}}</td>
         <td>
           <form action="/dashboard/{{complaint.pk}}">
@@ -121,12 +128,11 @@ td {
                   {% endfor%}
 
                 </select>
-                <select style="display:none;" name="c" >
-
+                <p style="display:none">
+                <select name="c" >
                   <option >{{complaint.id}}</option>
-
-
                 </select>
+              </p>
                 <input type="submit" value="assign">
                 <br>
           </form>
@@ -136,12 +142,11 @@ td {
       {% else %}
       <tr>
         <td>{{complaint.token}}</td>
-        <td>{{ complaint.complaint }} </td>
+        <!-- <td>{{ complaint.complaint }} </td> -->
         <td>{{ complaint.channel }} </td>
         <td>{{ complaint.dept }} </td>
         <td>{{ complaint.resolved_by }}</td>
         <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
-        <td>{{complaint.status}}</td>
         <td>{{complaint.sle_date}}</td>
         <td>
           <form action="/dashboard/{{complaint.pk}}">
@@ -160,12 +165,13 @@ td {
                     {% endfor%}
 
                   </select>
-                  <select style="display:none;" name="c" >
 
+                  <p style="display:none">
+                  <select name="c" >
                     <option >{{complaint.id}}</option>
-
-
                   </select>
+                </p>
+
                   <input type="submit" value="assign">
 
             </form>
@@ -181,12 +187,11 @@ td {
 
 
       <td>{{complaint.token}}</td>
-      <td>{{ complaint.complaint }} </td>
+      <!-- <td>{{ complaint.complaint }} </td> -->
       <td>{{ complaint.channel }} </td>
       <td>{{ complaint.dept }} </td>
       <td>{{ complaint.resolved_by }}</td>
       <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
-      <td>{{complaint.status}}</td>
       <td>{{complaint.sle_date}}</td>
       <td>
         <form action="/dashboard/details/{{complaint.pk}}">

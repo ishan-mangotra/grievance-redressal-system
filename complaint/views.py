@@ -60,7 +60,6 @@ def staffdashboard(request):
     return render(request, 'staff-dashboard.html', context)
 
 @login_required
-@permission_required('complaint.change_complaint')
 def dashboard(request):
     form = dashboardform()
     dat = timezone.now()

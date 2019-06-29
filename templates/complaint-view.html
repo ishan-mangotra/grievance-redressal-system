@@ -6,29 +6,48 @@
   <head>
     <meta charset="utf-8">
     <title>My Complaints</title>
+    <style>
+    table {
+     table-layout: fixed;
+     width: 100%;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     margin-bottom: 3%
+   }
+   td {
+     overflow:hidden;
+     text-overflow:ellipsis;
+     border:1px solid blue
+     }
+
+       tr:nth-child(even) {background-color: #79aec8}
+       tr:nth-child(odd) {background-color:#417690 }
+      </style>
   </head>
   <body>
     <h1> My Complaints </h1>
     <br>
+    <table>
+      <tr>
+        <th>TOKEN</th>
+        <th>Department</th>
+        <th>Stream</th>
+        <th>Status</th>
+        <th>Registration Date</th>
+        <th>Details</th>
     {% for complaint in complaints %}
-      <h3>Token: {{complaint.token}}</h3>
-      <ul>
-        <li>Complaint: {{complaint.complaint}} </li>
-        <li>Department: {{complaint.dept}}</li>
-        <li>Stream: {{ complaint.stream }}</li>
-        <li>Status: {{ complaint.status}}</li>
-        {% if complaint.image %}
-          <li><a href ="../media/{{ complaint.image }}" >Attached Image</a></li>
-        {% endif %}
-
-        {% if complaint.file %}
-          <li><a href= "../media/{{ complaint.file }}">Attatched File</a></li>
-        {% endif %}
-        <li>Registered on: {{complaint.date}} </li>
-        <li>Author: {{complaint.author.username}}</li>
-      </ul>
-      <hr>
-
+    <tr>
+        <td>{{complaint.token}}</td>
+        <td>{{complaint.dept}}</td>
+        <td>{{complaint.stream }}</td>
+        <td>{{complaint.status}}</td>
+        <td>{{complaint.date}} </td>
+        <td>
+          <form action="/dashboard/details/{{complaint.pk}}">
+            <input class="resolvebutton"type="submit" value="Details">
+          </form>
+        </td>
+    </tr>
     {% endfor %}
 
     <form action="{% url 'complaint-registration' %}">

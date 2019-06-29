@@ -5,19 +5,25 @@
   <head>
     <meta charset="utf-8">
     <title>Complaint Registration</title>
+    <style media="screen">
+    .input{
+
+    }
+    </style>
   </head>
 
 
 
   <body>
     <h1>Complaint Resolution</h1>
-        <h3>Token: {{comp.token}}</h3>
-        <p>Channel: {{ comp.channel }}</p>
-        <p>Department: {{comp.dept}}</p>
-        <p>Stream: {{ comp.stream }}</p>
-        <p>Status: {{comp.status}}</p>
-        <p> By {{ comp.author.username }} at {{ comp.date }}</p>
-        <p>Grievance: {{ comp.complaint }} </p>
+        <p><b>Token:</b> {{comp.token}}</p>
+        <p><b>Channel:</b> {{ comp.channel }}</p>
+        <p><b>Department:</b> {{comp.dept}}</p>
+        <p><b>Stream:</b> {{ comp.stream }}</p>
+        <p><b>Status:</b> {{comp.status}}</p>
+        <p><b>Grievance:</b> {{ comp.complaint }} </p>
+        <p> <b>By</b> {{ comp.author.username }} <b>on</b> {{ comp.date }}</p>
+
         {% if comp.image %}
           <a href ="../media/{{ comp.image }}" >Attached Image</a>
         {% endif %}
@@ -28,9 +34,11 @@
 
     <form method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
-        
-        <input class='button' type="submit" value="Submit" href="{% url 'sendmail' %}"> 
+        <p > <b>Resolution:</b> {{ form.resolution }}</p>
+        <p ><b> Status:</b> {{form.status}}</p>
+        <p>{{form.submit}}</p>
+
+        <input class='button' type="submit" value="Submit"  href="{% url 'sendmail' %}">
     </form>
 
 
