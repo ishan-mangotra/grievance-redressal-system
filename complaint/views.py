@@ -3,8 +3,9 @@ from django.utils import timezone, six
 from urllib.parse import urlencode
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Complaint
+from users.models import User_manager
 from .forms import ComplaintForm,editprofileform, complaintredressal, dashboardform,managerform
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Permission,Group
 from django.contrib.auth import get_user_model,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
 from django.core.exceptions import PermissionDenied
@@ -63,7 +64,13 @@ def staffdashboard(request):
 def dashboard(request):
     form = dashboardform()
     dat = timezone.now()
-    query=User.objects.all()
+    query=User.objects.filter(groups__name='staff')
+    #query=[]
+    #for i in q:
+    #    query.append(q.groups)
+
+
+
     dep=request.GET.get("d")
     cha=request.GET.get("c")
     name=request.GET.get("n")
@@ -164,8 +171,18 @@ def manager(request):
         name=0
     complaints_unre = Complaint.objects.filter(dept="department0",status = "unresolved")
     complaints_re = Complaint.objects.filter(dept="department0",status ="resolved")
-    c1=len(complaints_unre)
-    c2=len(complaints_re)
+
+    c1 = len(Complaint.objects.filter(status ="unresolved"))
+    c2 = len(Complaint.objects.filter(status ="resolved"))
+    c5 = len(Complaint.objects.filter(status ="spam"))
+    x = Complaint.objects.filter(status ="unresolved")
+    c3=0
+    for i in x:
+        if i.sle_date<dat:
+            c3+=1
+
+    total = len(Complaint.objects.all())
+    c4 = total -c3
 
     if dep and cha and not name:
         if date1 and date2:
@@ -174,6 +191,7 @@ def manager(request):
         elif not (date1 and date2):
             complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved")
             complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved")
+
         c1=len(complaints_unre)
         c2=len(complaints_re)
 
@@ -246,7 +264,8 @@ def manager(request):
         c2=len(complaints_re)
 
 
-    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat,'c1':c1,'c2':c2,'query':query}
+    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,
+                'dat':dat,'c1':c1,'c2':c2,'c3':c3,'c4':c4,'c5':c5,'query':query,'total':total}
     return render(request, 'manager-dashboard.html', context)
 
 
