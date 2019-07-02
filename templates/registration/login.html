@@ -10,28 +10,160 @@
 
 
 
-  <body>
-    <h1> LOGIN </h1>
-    <form method = "POST">
+  <style >
+
+
+  body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #004A7D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+
+
+
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 50%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+
+
+
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+</style>
+
+<body>
+
+   
+
+
+  
+  <form class="modal-content animate" method="POST">
+  <fieldset>
+      <center><h1>LOGIN<h1></center>
+        
+    
+      
       {% csrf_token %}
-      <fieldset>
+      
         {{ form.as_p  }}
         <button type="submit"> Login </button>
-
-      </fieldset>
-    </form>
+    
+      </form>
+      
+    
     <br>
-    <p> Don't have an account?</p>
-    <form action = "{% url 'register' %}">
-      <input type = "submit" value = "REGISTER"></input>
-    </form>
-
-
-<p>    <form>
-    Forgot password?
-    <a href="{% url 'password_reset' %}"> Click here to change</a>
+    
+    <p> Don't have an account? <a style="text-decoration:none" href="{% url 'register' %}">Click here to <b>REGISTER</b>       
+   </a></p> 
+    
+   <p>Forgot password? <a style="text-decoration:none" href="{% url 'password_reset' %}"> Click here to <b>RESET</b></a></p>
+    
   </form> </p>
+</form>
 
+
+
+   
+      </form>
+      
+    </div>
+
+   
+     
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+  
   </body>
 
 {% endblock %}

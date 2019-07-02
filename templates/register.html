@@ -15,8 +15,13 @@
     <form method = "POST">
       {% csrf_token %}
       <fieldset>
-        {{ form.as_p  }}
-        <button type="submit"> Register </button>
+      <table style="text-align: left">
+        {{ form.as_table }}
+        <tr>
+             <td><button type="submit"> Register </button></td>
+         </tr>
+        
+</table>
 
       </fieldset>
     </form>
