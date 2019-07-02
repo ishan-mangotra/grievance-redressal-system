@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 
 from django.core.mail import send_mail
 from django.conf import settings
-# Create your views here.
+# Create your s here.
 
 def group_required(group, login_url=None, raise_exception=False):
     def check_perms(user):
@@ -145,8 +145,31 @@ def passwordchange(request):
 def mycomplaints(request):
     context = {
         'complaints' : Complaint.objects.filter(author= request.user)
+
+
     }
+
     return render(request, 'complaint-view.html', context)
+
+
+
+@login_required
+@permission_required('complaint.change_complaint')
+def redressal(request, cmp_id):
+    comp = get_object_or_404(Complaint,pk=cmp_id)
+    if request.method == "POST":
+        form =complaintredressal(request.POST, request.FILES)
+        if form.is_valid():
+            comp.status = form.cleaned_data['status']
+            comp.resolution = form.cleaned_data['resolution']
+            comp.resolved_by = request.user.username
+            comp.save()
+
+            return redirect('/dashboard')
+
+    form = complaintredressal()
+
+    return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
 
 @login_required
 def myprofile(request):
@@ -315,8 +338,27 @@ def sendmail(request):
 
 
 
-@permission_required('complaint.change_complaint')
+# @permission_required('complaint.change_complaint')
 def details(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
     context = {'comp':comp}
     return render(request, 'complaint-details.html',context)
+
+
+
+
+    # comp = get_object_or_404(Complaint,pk=cmp_id)
+    # if request.method == "POST":
+    #     form =complaintredressal(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         comp.status = form.cleaned_data['status']
+    #         comp.resolution = form.cleaned_data['resolution']
+    #         comp.resolved_by = request.user.username
+    #         mail=comp.author.email
+    #         comp.save()
+    #
+    #         return redirect('/dashboard')
+    #
+    # form = complaintredressal()
+    #
+    # return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})

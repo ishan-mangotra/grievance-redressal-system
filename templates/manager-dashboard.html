@@ -18,7 +18,7 @@
    td {
      overflow:hidden;
      text-overflow:ellipsis;
-     border:1px solid blue
+     /* border:1px solid blue */
      }
 
        tr:nth-child(even) {background-color: #79aec8}
@@ -62,6 +62,11 @@
 
 form{
   display: inline-block;
+}
+
+table.filtertab{
+  width:30%;
+  border:none;
 }
 
     </style>
@@ -128,7 +133,7 @@ form{
         </strong></p>
       </div>
       <div class="container">
-        <h4><b>Beyond SLE</b></h4>
+        <h4><b>Beyond SLA</b></h4>
       </div>
     </div>
 
@@ -143,7 +148,7 @@ form{
         </strong></p>
       </div>
       <div class="container">
-        <h4><b>Within SLE</b></h4>
+        <h4><b>Within SLA</b></h4>
       </div>
     </div>
 
@@ -170,17 +175,21 @@ form{
 
     <form method='GET' action=''>
         {% csrf_token %}
-
-        <strong>Channel:</strong>
-        <select name = "c">
+<table class="filtertab">
+<div>
+        <tr><td style="height:30px;background:white"><strong>Channel:</strong></td>
+        <td style="height:30px;background:white"><select name = "c">
           <option >All</option>
           <option >MeeSeva</option>
           <option >T-App Folio</option>
           <option >T-Wallet</option>
         </select>
-
-        <strong>Department:</strong>
-        <select name = "d">
+      </td>
+      </tr>
+</div>
+<div>
+    <tr>  <td style="height:30px;background:white">  <strong>Department:</strong></td>
+      <td style="height:30px;background:white">  <select name = "d">
           <option >All</option>
           <option >Revenue</option>
           <option >Food And Civil Supplies</option>
@@ -190,20 +199,34 @@ form{
           <option >NPDCL</option>
           <option >Others</option>
         </select>
-
-        <strong>From:</strong>
-        <input type="date" name="date1">
-
-        <strong>To:</strong>
-        <input type="date" name="date2">
-
-        <strong>User:</strong>
-        <select name="n" >
+      </td>
+    </tr>
+</div>
+<div>
+      <tr>
+      <td style="height:30px;background:white">  <strong>From:</strong> </td>
+      <td style="height:30px;background:white">  <input type="date" name="date1"></td>
+    </tr>
+</div>
+<div>
+      <tr><td style="height:30px;background:white">  <strong>To:</strong></td>
+        <td style="height:30px;background:white"><input type="date" name="date2"></td>
+      </tr>
+</div>
+<div>
+      <tr>
+        <td style="height:30px;background:white">  <strong>User:</strong></td>
+      <td style="height:30px;background:white">  <select name="n" >
           <option >All</option>
           {% for q in query%}
           <option >{{q}}</option>
           {% endfor%}
+
         </select>
+      </td>
+    </tr>
+</div>
+</table>
         <br>
         <input class='button' type="submit"  value="Filter" >
 
@@ -222,7 +245,7 @@ form{
          <th> Resolved By</th>
          <th> Registration details</th>
          <th> Status</th>
-         <th> SLE Date </th>
+         <th> SLA Date </th>
          <th> Resolve </th>
 
        </tr>
