@@ -25,16 +25,36 @@ label.small
 }
 </style>
   </head>
+
+
+
   <body>
-    <h1> Welcome to complaint registration! </h1>
+
+<div>
+
+  <table >
+  <h3> Welcome to complaint registration! </h3>
     <form method='POST' enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input class='myButton' type="submit" value="Submit" >
-    </form>
+    {% for field in form %}
+    <tbody>
+    <tr>
+      <td>
+        <label class="small" for="{{ field.label }}" style="display:inline-block;vertical-align:middle ;float:bottom;">{{ field.label_tag }}</label>
+      </td>
+      <td>
+        {{ field }}
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
 
+ 
 
-
+  </table>
+   
+<input class='myButton' type="submit" value="Submit" >
+ </form>
   </body>
 {% endblock content %}
 

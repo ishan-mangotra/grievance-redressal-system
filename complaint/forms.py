@@ -38,7 +38,9 @@ class ComplaintForm(forms.Form):
     channel = forms.CharField(label='Channel', widget=forms.Select(choices=channel_choice))
     dept = forms.CharField(label='Department', widget=forms.Select(choices=dept_choice))
     stream = forms.CharField(label='Stream', widget=forms.Select(choices=stream_choice))
-    complaint = forms.CharField(max_length=1000, required=True)
+    complaint = forms.CharField(widget=forms.Textarea(attrs={'cols': 60, 'rows': 5} ))
+
+    
     image = forms.ImageField(required=False)
     file = forms.FileField(required=False)
     #file = forms.FileField()
