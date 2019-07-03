@@ -12,9 +12,9 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.core.mail import send_mail
 from django.conf import settings
-# Create your s here.
 
 
+#method to verify if a user is part of a group
 def group_required(group, login_url=None, raise_exception=False):
     def check_perms(user):
         if isinstance(group, six.string_types):
@@ -28,9 +28,11 @@ def group_required(group, login_url=None, raise_exception=False):
         return False
     return user_passes_test(check_perms, login_url=login_url)
 
+#Complaint registration page. Can only be accessed once someone has logged in
 @login_required
 def home(request):
-
+    #if a form has been submitted, validation is checked and the form is saved,
+    # finally redirecting to a different page
     if request.method == "POST":
         form = ComplaintForm(request.POST, request.FILES)
         if form.is_valid():
@@ -44,11 +46,14 @@ def home(request):
             context.file = form.cleaned_data['file']
             context.save()
             return redirect('done/')
-
+    # Normally, ComplaintForm is saved as form and passed as context.
+    # The form will be rendered if there has been no submissions or if there is some validation error
     form = ComplaintForm()
     context = {'form':form}
     return render(request, 'complaint-register.html', context)
-# @login_required
+
+#Complpaint registration confirmation
+@login_required
 def done(request):
     return render(request, 'complaint-registered.html')
 
@@ -160,24 +165,7 @@ def mycomplaints(request):
     return render(request, 'complaint-view.html', context)
 
 
-
-@login_required
-def redressal(request, cmp_id):
-    comp = get_object_or_404(Complaint,pk=cmp_id)
-    if request.method == "POST":
-        form =complaintredressal(request.POST, request.FILES)
-        if form.is_valid():
-            comp.status = form.cleaned_data['status']
-            comp.resolution = form.cleaned_data['resolution']
-            comp.resolved_by = request.user.username
-            comp.save()
-
-            return redirect('/dashboard')
-
-    form = complaintredressal()
-
-    return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
-
+#Each user has a customized profile page. This vieew is to render the page
 @login_required
 def myprofile(request):
     context = {
@@ -305,6 +293,7 @@ def manager(request):
     return render(request, 'manager-dashboard.html', context)
 
 
+#Main view for complaint redressal
 @login_required
 @permission_required('complaint.change_complaint')
 def redressal(request, cmp_id):
@@ -334,7 +323,7 @@ def redressal(request, cmp_id):
 
     return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
 
-
+#Email is sent once a complaint has been resolved
 def sendmail(request):
     mail='esdgrievance@gmail.com'
     m=mail
@@ -350,7 +339,7 @@ def sendmail(request):
     return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
 
 
-
+#To view complaint details for each complaint
 # @permission_required('complaint.change_complaint')
 def details(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)

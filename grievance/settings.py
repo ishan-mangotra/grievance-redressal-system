@@ -41,6 +41,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'grievance.urls'
 
+
+#Changing default user model to our custom user model User from app user.
 AUTH_USER_MODEL = 'users.User'
 
 TEMPLATES = [
@@ -121,6 +123,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/dashboard/media/'
 
+#Setting default login and logout routes
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'

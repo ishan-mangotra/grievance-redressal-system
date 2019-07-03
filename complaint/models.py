@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-#from users.models import User as get_user_model
 from datetime import timedelta
 
 
@@ -34,9 +33,7 @@ class Complaint(models.Model):
     f5="Others"
     stream_choices = ((f1,"Application Issues"),(f2,"Payment Issues"),(f3,"Data Fields"),(f4,"Server Slowness"),(f5,"Others"))
 
-    def two_days():
-        now = timezone.now()
-        return now + timedelta(days=2)
+
 
     date = models.DateTimeField(default=timezone.now)
     channel = models.CharField(max_length = 25, choices = channel_choice, default = c1)
@@ -52,6 +49,12 @@ class Complaint(models.Model):
     image = models.ImageField(upload_to = 'images/', blank=True, null=True)
     file = models.FileField(upload_to = 'documents/', blank=True, null=True)
 
+    #Create a token for every complaint
     def token(self):
         self.token = 'CMPO'+str(self.id)
         return self.token
+
+    #To set SLE Date
+    def two_days():
+        now = timezone.now()
+        return now + timedelta(days=2)

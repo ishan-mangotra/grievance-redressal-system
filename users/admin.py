@@ -1,14 +1,21 @@
 from django.contrib import admin
+#Importing the new forms to be used instead of the regular django user forms
 from .forms import UserAdminCreationForm, UserAdminChangeForm
+#importing the default user model
 from .models import User
 from django.contrib.auth import get_user_model
+#importing user types to set up a custom user model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
+#importing to modify the group model
 from django.contrib.auth.models import Group
+#importing to allow multiple users to be a part of a group
 from django.contrib.admin.widgets import FilteredSelectMultiple
+
 
 User = get_user_model()
 
+# Creating a new form to enter groups
 class GroupAdminForm(forms.ModelForm):
     class Meta:
         model = Group
@@ -66,12 +73,15 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('username','email','phone')
     filter_horizontal = ()
 
-
+# Registering UserAdmin as the default user
 admin.site.register(User, UserAdmin)
-admin.site.unregister(Group)
 
+#Creating a new group model
 class GroupAdmin(admin.ModelAdmin):
     form = GroupAdminForm
     filter_horizontal = ['permissions']
 
+#Unregistering the default group model
+admin.site.unregister(Group)
+#Registering GroupAdmin as the default Group model
 admin.site.register(Group, GroupAdmin)
