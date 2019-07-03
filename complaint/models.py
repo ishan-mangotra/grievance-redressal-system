@@ -24,7 +24,8 @@ class Complaint(models.Model):
     s1="unresolved"
     s2="resolved"
     s3="spam"
-    status_choice = ((s1,"unresolved"),(s2,"resolved"),(s3,"spam"))
+    s4="reassign"
+    status_choice = ((s1,"unresolved"),(s2,"resolved"),(s3,"spam"),(s4,"reassign"))
 
     f1="Applications Issues"
     f2="Payment Issues"

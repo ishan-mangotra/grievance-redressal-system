@@ -15,7 +15,7 @@
 
 
   <body>
-    <h1>Complaint Resolution</h1>
+    <h1>Complaint Details</h1>
         <p><b>Token:</b> {{comp.token}}</p>
         <p><b>Channel:</b> {{ comp.channel }}</p>
         <p><b>Department:</b> {{comp.dept}}</p>
@@ -31,7 +31,8 @@
         {% if comp.file %}
           <a href= "../media/{{ comp.file }}">Attatched File</a>
         {% endif %}
-
+        <hr>
+        <h1>Resolve</h1>
     <form method='post'>
         {% csrf_token %}
         <p > <b>Resolution:</b> {{ form.resolution }}</p>

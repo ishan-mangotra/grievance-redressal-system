@@ -85,6 +85,108 @@ td {
 
 
     <hr>
+
+<h1>Complaints to be reassigned</h1>
+
+    <table>
+      <tr>
+        <th > Token</th>
+        <!-- <th> Grievance</th> -->
+        <th> Channel </th>
+        <th> Department </th>
+        <th> Resolved By</th>
+        <th> Registration details</th>
+        <th> SLE Date </th>
+        <th> Resolve </th>
+        <th> Assigned to</th>
+        <th> Assign</th>
+
+      </tr>
+
+
+    {% for complaint in complaints_assgn %}
+      {% if complaint.sle_date < dat %}
+      <tr style="color: red">
+        <td>{{complaint.token}}</td>
+        <!-- <td>{{ complaint.complaint }} </td> -->
+        <td>{{ complaint.channel }} </td>
+        <td>{{ complaint.dept }} </td>
+        <td>{{ complaint.resolved_by }}</td>
+        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+        <td>{{complaint.sle_date}}</td>
+        <td>
+          <form action="/dashboard/{{complaint.pk}}">
+            <input type="submit" value="resolve">
+          </form>
+        </td>
+        <td>
+          {{complaint.assigned_to}}
+      </td>
+      <td>
+          <form method='GET' action=''>
+              <select name="n" >
+                  <option ></option>
+                  {% for q in query%}
+                  <option >{{q}}</option>
+                  {% endfor%}
+
+                </select>
+                <p style="display:none">
+                <select name="c" >
+                  <option >{{complaint.id}}</option>
+                </select>
+              </p>
+                <input type="submit" value="assign">
+                <br>
+          </form>
+      </td>
+
+      </tr>
+      {% else %}
+      <tr>
+        <td>{{complaint.token}}</td>
+        <!-- <td>{{ complaint.complaint }} </td> -->
+        <td>{{ complaint.channel }} </td>
+        <td>{{ complaint.dept }} </td>
+        <td>{{ complaint.resolved_by }}</td>
+        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+        <td>{{complaint.sle_date}}</td>
+        <td>
+          <form action="/dashboard/{{complaint.pk}}">
+            <input type="submit" value="resolve">
+          </form>
+        </td>
+        <td>
+            {{complaint.assigned_to}}
+        </td>
+        <td>
+            <form method='GET' action=''>
+                <select name="n" >
+                    <option ></option>
+                    {% for q in query%}
+                    <option >{{q}}</option>
+                    {% endfor%}
+
+                  </select>
+
+                  <p style="display:none">
+                  <select name="c" >
+                    <option >{{complaint.id}}</option>
+                  </select>
+                </p>
+
+                  <input type="submit" value="assign">
+
+            </form>
+        </td>
+      </tr>
+      {% endif %}
+
+    {% endfor %}
+  </table>
+
+<h1>Unresolved complaints</h1>
+
     <table>
       <tr>
         <th > Token</th>
@@ -181,7 +283,17 @@ td {
 
     {% endfor %}
   </table>
+
+  <h1>Resolved Complaints</h1>
   <table>
+    <tr>
+      <th>TOKEN</th>
+      <th>CHANNEL</th>
+      <th>DEPARTMENT</th>
+      <th>RESOLVED BY</th>
+      <th>REGISTRATION DETAILS</th>
+      <th>DETAILS</th>
+    </tr>
     {% for complaint in complaints_re %}
       <tr>
 
@@ -192,7 +304,7 @@ td {
       <td>{{ complaint.dept }} </td>
       <td>{{ complaint.resolved_by }}</td>
       <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
-      <td>{{complaint.sle_date}}</td>
+
       <td>
         <form action="/dashboard/details/{{complaint.pk}}">
           <input type="submit" value="Details">

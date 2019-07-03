@@ -25,7 +25,8 @@ channel_choice = ((c1,"MeeSeva"),(c2,"T-App Folio"),(c3,"T-Wallet"))
 s1="unresolved"
 s2="resolved"
 s3="spam"
-status_choice = ((s1,"unresolved"),(s2,"resolved"),(s3,"spam"))
+s4="reassign"
+status_choice = ((s1,"unresolved"),(s2,"resolved"),(s3,"spam"),(s4,"reassign"))
 
 f1="Applications Issues"
 f2="Payment Issues"
@@ -40,7 +41,7 @@ class ComplaintForm(forms.Form):
     stream = forms.CharField(label='Stream', widget=forms.Select(choices=stream_choice))
     complaint = forms.CharField(widget=forms.Textarea(attrs={'cols': 60, 'rows': 5} ))
 
-    
+
     image = forms.ImageField(required=False)
     file = forms.FileField(required=False)
     #file = forms.FileField()
@@ -49,7 +50,7 @@ class ComplaintForm(forms.Form):
 
 class complaintredressal(forms.Form):
 
-    resolution = forms.CharField(max_length=1000, widget=forms.TextInput(attrs={'class': "input"}),)
+    resolution = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={'cols': 60, 'rows': 5} ))
     status = forms.CharField(label='Status', widget=forms.Select(choices=status_choice))
 
 class dashboardform(forms.Form):

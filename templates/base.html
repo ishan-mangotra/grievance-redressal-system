@@ -6,15 +6,12 @@
     <!--link rel="stylesheet" href="{% static 'main.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Poppins:500|Montserrat:300|Open+Sans|Roboto|Source+Sans+Pro:300&display=swap" rel="stylesheet"-->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Grievance Portal </title>
     <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script-->
   </head>
-  <!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<head>
 <style>
 
 .zoom {
@@ -68,7 +65,7 @@ body {
   background-size: cover;
   background-position: center;
   background-blend-mode: lighten;
-  background-image: url("{% static 'topnav.jpeg' %}");
+  background-image: url("{% static 'images/topnav.jpeg' %}");
 }
 .resolvebutton {
         background: white;
@@ -159,7 +156,7 @@ hr.linestyle {
 
 </head>
 
-<div  class="heading"><img src= "../media/map.png" style="float: right; width: 6.5%; height: 6.5%;">
+<div  class="heading"><img src= "{% static 'images/map.png' %}" style="float: right; width: 6.5%; height: 6.5%;">
   <p style="margin-left: 50%; transform: translatex(-30%)">GOVERNMENT OF TELANGANA</p>
   <div class="topnav">
     {% if user.is_authenticated %}
@@ -176,7 +173,7 @@ hr.linestyle {
 <body>
 
 <div class="sidenav">
-  <img style="margin-top:-7%;" src=" ../media/GOTLOGO.png " width="225">
+  <img style="margin-top:-7%;" src="{% static 'images/GOTLOGO.png' %}" width="225">
   <a style="margin-top:-10%;" href="{% url 'index' %}"><div ><span>Home</span></a></div>
   <hr class="linestyle">
   <a href="{% url 'faqs' %}">FAQs</a>

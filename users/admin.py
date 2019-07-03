@@ -51,7 +51,6 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ()
     fieldsets = (
         (None, {'fields': ('email','username', 'password')}),
-        ('User Category',{'fields':('mode','category',)}),
         ('Personal info', {'fields': ('first_name','last_name', 'phone','housenumber','locality','village','mandal','district','pincode')}),
 
     )

@@ -9,11 +9,7 @@ from django.conf.urls.static import static
 from complaint.views import redressal, sendmail
 
 
-
-
-
 urlpatterns = [
-    path('complaint/', include('complaint.urls')),
     path('admin/', admin.site.urls),
     path('', userviews.index, name='index'),
     path('faqs/', userviews.faqs, name='faqs'),

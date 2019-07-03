@@ -96,6 +96,48 @@ td {
 
       {% endfor %}
 
+
+      {% for complaint in complaints_assgn %}
+        {% if complaint.sle_date < dat %}
+        <tr style="color: red">
+          <td>{{complaint.token}}</td>
+          <!-- <td>{{ complaint.complaint }} </td> -->
+          <td>{{ complaint.channel }} </td>
+          <td>{{ complaint.dept }} </td>
+          <td>{{ complaint.resolved_by }}</td>
+          <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+          <td>{{complaint.status}}</td>
+          <td>{{complaint.sle_date}}</td>
+          <td>
+            <form action="/dashboard/{{complaint.pk}}">
+              <input type="submit" value="resolve">
+            </form>
+          </td>
+
+
+        </tr>
+        {% else %}
+        <tr>
+          <td>{{complaint.token}}</td>
+          <!-- <td>{{ complaint.complaint }} </td> -->
+          <td>{{ complaint.channel }} </td>
+          <td>{{ complaint.dept }} </td>
+          <td>{{ complaint.resolved_by }}</td>
+          <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+          <td>{{complaint.status}}</td>
+          <td>{{complaint.sle_date}}</td>
+          <td>
+            <form action="/dashboard/{{complaint.pk}}">
+              <input type="submit" value="resolve">
+            </form>
+          </td>
+
+        </tr>
+        {% endif %}
+
+      {% endfor %}
+
+
       {% for complaint in complaints_re %}
         <tr>
 

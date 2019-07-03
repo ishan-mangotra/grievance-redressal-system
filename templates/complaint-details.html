@@ -15,7 +15,13 @@
         <p><b>Channel:</b> {{ comp.channel }}</p>
         <p><b>Department:</b> {{comp.dept}}</p>
         <p><b>Stream:</b> {{ comp.stream }}</p>
-        <p><b>Status:</b> {{comp.status}}</p>
+        <p><b>Status:</b>
+        {% if comp.status == 'resolved' %}
+          Resolved
+        {% else %}
+          Processing
+        {% endif %}
+          </p>
         <p><b>Grievance:</b> {{ comp.complaint }} </p>
         <p><b>By</b> {{ comp.author.username }} <b> on </b> {{ comp.date }}</p>
         {% if comp.status == 'resolved' %}

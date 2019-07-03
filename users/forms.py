@@ -1,30 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import User
-m1="Mee Seva"
-m2="T-App"
-m3="T-Wallet"
-m4="Citizen"
-mode_choice = ((m1,"Mee Seva"),(m2,"T-App"),(m3,"T-Wallet"),(m4,"Citizen"))
 
-c1="Revenue"
-c2="Food and Civil Supplies"
-c3="GHMC"
-c4="Commercial Taxes"
-c5="SPDCL"
-c6="NPDCL"
-c7="Others"
-c8="Citizen"
-category_choice = (
-    (c1,"Revenue"),
-    (c2,"Food and Civil Supplies"),
-    (c3,"GHMC"),
-    (c4,"Commercial Taxes"),
-    (c5,"SPDCL"),
-    (c6,"NPDCL"),
-    (c7,"Others"),
-    (c8,"Citizen")
-)
 
 class RegistrationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -90,8 +67,6 @@ class UserAdminCreationForm(forms.ModelForm):
     fields, plus a repeated password."""
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
-    mode = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=mode_choice)
-    category = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=category_choice)
 
     class Meta:
         model = User
@@ -106,8 +81,6 @@ class UserAdminCreationForm(forms.ModelForm):
             'mandal',
             'district',
             'pincode',
-            'mode',
-            'category'
         )
 
     def clean_password2(self):
@@ -133,8 +106,6 @@ class UserAdminChangeForm(forms.ModelForm):
     password hash display field.
     """
     password = ReadOnlyPasswordHashField()
-    mode = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=mode_choice, required=False)
-    category = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=category_choice, required=False,)
 
 
     class Meta:
@@ -150,8 +121,6 @@ class UserAdminChangeForm(forms.ModelForm):
             'mandal',
             'district',
             'pincode',
-            'mode',
-            'category'
         )
 
     def clean_password(self):

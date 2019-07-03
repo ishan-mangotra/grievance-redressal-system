@@ -2,3 +2,5 @@ The following frameworks are required to run the portal on your system:
 1. Python3 v3.6.7
 2. Django v2.0.2
 3. MultiSelectField (pip install django-multiselectfield)
+4. mysql v14.14
+5. mysql-server v5.7.26

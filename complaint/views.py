@@ -10,10 +10,10 @@ from django.contrib.auth import get_user_model,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
-
 from django.core.mail import send_mail
 from django.conf import settings
 # Create your views here.
+
 
 def group_required(group, login_url=None, raise_exception=False):
     def check_perms(user):
@@ -52,31 +52,30 @@ def home(request):
 def done(request):
     return render(request, 'complaint-registered.html')
 
+#Staff Dashboard to view all the assigned complaints
 @group_required('staff')
 def staffdashboard(request):
     dat = timezone.now()
-    complaints_unre = Complaint.objects.filter(assigned_to=request.user,status = "unresolved")
+    complaints_unre = Complaint.objects.filter(assigned_to=request.user)
     complaints_re = Complaint.objects.filter(assigned_to=request.user,status = "resolved")
     context = {'complaints_unre' : complaints_unre,'complaints_re':complaints_re,"dat":dat}
     return render(request, 'staff-dashboard.html', context)
 
+#Complaint dashboard to assign all complaints
 @login_required
 def dashboard(request):
     form = dashboardform()
     dat = timezone.now()
     query=User.objects.filter(groups__name='staff')
-    #query=[]
-    #for i in q:
-    #    query.append(q.groups)
-
-
-
     dep=request.GET.get("d")
     cha=request.GET.get("c")
     name=request.GET.get("n")
     cm=request.GET.get("c")
     complaints_unre = Complaint.objects.filter(dept="department0",status = "unresolved")
     complaints_re = Complaint.objects.filter(dept="department0",status ="resolved")
+    complaints_spam = Complaint.objects.filter(dept="department0",status ="spam")
+    complaints_assgn = Complaint.objects.filter(dept="department0",status ="reassign")
+
     compl=Complaint.objects.filter(dept="department0",status ="resolved")
 
 
@@ -84,24 +83,33 @@ def dashboard(request):
 
         complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved")
         complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved")
+        complaints_spam = Complaint.objects.filter(dept=dep, channel=cha,status ="spam")
+        complaints_assgn = Complaint.objects.filter(dept=dep,channel=cha,status ="reassign")
     if dep == "All" and cha !="All":
         complaints_unre = Complaint.objects.filter(channel=cha,status = "unresolved")
         complaints_re = Complaint.objects.filter(channel=cha,status ="resolved")
+        complaints_spam = Complaint.objects.filter(channel=cha,status ="spam")
+        complaints_assgn = Complaint.objects.filter(channel=cha,status ="reassign")
     if cha == "All"and dep != "All":
         complaints_unre = Complaint.objects.filter(dept=dep,status = "unresolved")
         complaints_re = Complaint.objects.filter(dept=dep,status ="resolved")
+        complaints_spam = Complaint.objects.filter(dept=dep,status ="spam")
+        complaints_assgn = Complaint.objects.filter(dept=dep,status ="reassign")
     if dep == "All" and cha =="All":
         complaints_unre = Complaint.objects.filter(status = "unresolved")
         complaints_re = Complaint.objects.filter(status ="resolved")
+        complaints_spam = Complaint.objects.filter(status ="spam")
+        complaints_assgn = Complaint.objects.filter(status ="reassign")
 
     if name and cm:
         Complaint.objects.filter(id=cm).update(assigned_to=name)
 
 
 
-    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat,'query':query,'name':name,'compl':compl}
+    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'complaints_spam':complaints_spam,'complaints_assgn':complaints_assgn,'dat':dat,'query':query,'name':name,'compl':compl}
     return render(request, 'complaint-dashboard.html', context)
 
+#edit profile view
 @login_required
 def edit(request):
 
@@ -124,7 +132,7 @@ def edit(request):
         args = {'form':form}
         return render(request, 'edit.html', args)
 
-
+#Change passsword
 @login_required
 def passwordchange(request):
 
@@ -140,7 +148,7 @@ def passwordchange(request):
         args = {'form':form}
         return render(request, 'edit-password.html', args)
 
-
+#Page to view all the complaints registered by user
 @login_required
 def mycomplaints(request):
     context = {
@@ -148,6 +156,7 @@ def mycomplaints(request):
     }
     return render(request, 'complaint-view.html', context)
 
+#User can view their own profile
 @login_required
 def myprofile(request):
     context = {
@@ -155,6 +164,7 @@ def myprofile(request):
     }
     return render(request, 'profile.html', context)
 
+#Manager has their own dashboard
 User=get_user_model()
 @group_required('manager')
 def manager(request):
@@ -176,7 +186,9 @@ def manager(request):
     c2 = len(Complaint.objects.filter(status ="resolved"))
     c5 = len(Complaint.objects.filter(status ="spam"))
     x = Complaint.objects.filter(status ="unresolved")
+
     c3=0
+
     for i in x:
         if i.sle_date<dat:
             c3+=1
@@ -188,12 +200,15 @@ def manager(request):
         if date1 and date2:
             complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved",date__range=[date1, date2])
             complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved",date__range=[date1, date2])
+            complaints_spam = Complaint.objects.filter(dept=dep, channel=cha, status='spam', date__range=[date1,date2])
         elif not (date1 and date2):
             complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved")
             complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved")
+            complaints_spam = Complaint.objects.filter(dept=dep, channel=cha, status='spam')
 
         c1=len(complaints_unre)
         c2=len(complaints_re)
+        c5=len(complaints_spam)
 
     if dep == "All" and cha !="All" and not name:
         if date1 and date2:

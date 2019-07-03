@@ -5,9 +5,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.utils import six
 
-
-
-
 def group_required(group, login_url=None, raise_exception=False):
     def check_perms(user):
         if isinstance(group, six.string_types):
@@ -27,15 +24,6 @@ def index(request):
 def faqs(request):
     return render(request, 'faqs.html')
 
-def login(request):
-    return render(request, 'login.html')
-
-def logout(request):
-    auth.logout(request)
-    return render(request, 'login.html')
-
-
-
 def register(request):
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
@@ -45,7 +33,3 @@ def register(request):
         return redirect('login')
     else:
         return render(request, 'register.html', {"form" : form })
-
-@login_required
-def password_reset(request):
-    return render(request, 'registration/password_reset_form.html')
