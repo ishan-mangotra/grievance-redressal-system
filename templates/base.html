@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <!--link rel="stylesheet" href="{% static 'main.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:500|Montserrat:300|Open+Sans|Roboto|Source+Sans+Pro:300&display=swap" rel="stylesheet"-->
+ <!--   <link rel="stylesheet" href="{% static 'main.css' %}">
+   <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:500|Montserrat:300|Open+Sans|Roboto|Source+Sans+Pro:300&display=swap" rel="stylesheet"-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Grievance Portal </title>
@@ -118,7 +118,7 @@ body {
   padding-top: 20px;
   background: #06061C;
   text-align: center;
-
+  border-right: 1px solid white;
 }
 
 .sidenav a {
@@ -157,6 +157,7 @@ hr.linestyle {
 </head>
 
 <div  class="heading"><img src= "{% static 'images/map.png' %}" style="float: right; width: 6.5%; height: 6.5%;">
+  <span><input style=" margin-left: 250px" type=button value="◄" onClick="javascript:history.go(-1);"></span>
   <p style="margin-left: 50%; transform: translatex(-30%)">GOVERNMENT OF TELANGANA</p>
   <div class="topnav">
     {% if user.is_authenticated %}

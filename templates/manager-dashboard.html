@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -7,64 +9,7 @@
   <head>
     <meta charset="utf-8">
     <title>Manager Dashboard</title>
-    <style>
-    table {
-     table-layout: fixed;
-     width: 100%;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     margin-bottom: 3%
-   }
-   td {
-     overflow:hidden;
-     text-overflow:ellipsis;
-     border:1px solid blue
-     }
-
-       tr:nth-child(even) {background-color: #79aec8}
-       tr:nth-child(odd) {background-color:#417690 }
-
-    .card:hover {
-      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    }
-    .container {
-      text-align: center;
-  padding: 2px 16px;
-}
-.palate{
-  height: 160px;
-  width: 100%;
-  display: flex;
-}
-.number{
-  width: 50%;
-  test-align: center;
-  background: #eb6213;
-  box-shadow: 2px 4px 10px 3px #eb6213;
-  padding: 1px;
-  margin-top: 5%;
-  color: #fff;
-  margin-left: 25%;
-  border-radius: 10px;
-
-}
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 15%;
-  text-align: center;;
-  /* padding-top: 10px; */
-  float: left;
-  margin-left: 10px;
-  font-size: 20px;
-}
-
-form{
-  display: inline-block;
-}
-
-    </style>
+   <link rel="stylesheet" href="{% static 'mngr.css' %}">
   </head>
 
   <body>
@@ -128,7 +73,7 @@ form{
         </strong></p>
       </div>
       <div class="container">
-        <h4><b>Beyond SLE</b></h4>
+        <h4><b>Beyond SLA</b></h4>
       </div>
     </div>
 
@@ -143,7 +88,7 @@ form{
         </strong></p>
       </div>
       <div class="container">
-        <h4><b>Within SLE</b></h4>
+        <h4><b>Within SLA</b></h4>
       </div>
     </div>
 
@@ -170,17 +115,21 @@ form{
 
     <form method='GET' action=''>
         {% csrf_token %}
-
-        <strong>Channel:</strong>
-        <select name = "c">
+<table class="filtertab">
+<div>
+        <tr><td style="height:30px;background:white"><strong>Channel:</strong></td>
+        <td style="height:30px;background:white"><select name = "c">
           <option >All</option>
           <option >MeeSeva</option>
           <option >T-App Folio</option>
           <option >T-Wallet</option>
         </select>
-
-        <strong>Department:</strong>
-        <select name = "d">
+      </td>
+      </tr>
+</div>
+<div>
+    <tr>  <td style="height:30px;background:white">  <strong>Department:</strong></td>
+      <td style="height:30px;background:white">  <select name = "d">
           <option >All</option>
           <option >Revenue</option>
           <option >Food And Civil Supplies</option>
@@ -190,20 +139,34 @@ form{
           <option >NPDCL</option>
           <option >Others</option>
         </select>
-
-        <strong>From:</strong>
-        <input type="date" name="date1">
-
-        <strong>To:</strong>
-        <input type="date" name="date2">
-
-        <strong>User:</strong>
-        <select name="n" >
+      </td>
+    </tr>
+</div>
+<div>
+      <tr>
+      <td style="height:30px;background:white">  <strong>From:</strong> </td>
+      <td style="height:30px;background:white">  <input type="date" name="date1"></td>
+    </tr>
+</div>
+<div>
+      <tr><td style="height:30px;background:white">  <strong>To:</strong></td>
+        <td style="height:30px;background:white"><input type="date" name="date2"></td>
+      </tr>
+</div>
+<div>
+      <tr>
+        <td style="height:30px;background:white">  <strong>User:</strong></td>
+      <td style="height:30px;background:white">  <select name="n" >
           <option >All</option>
           {% for q in query%}
           <option >{{q}}</option>
           {% endfor%}
+
         </select>
+      </td>
+    </tr>
+</div>
+</table>
         <br>
         <input class='button' type="submit"  value="Filter" >
 
@@ -222,7 +185,7 @@ form{
          <th> Resolved By</th>
          <th> Registration details</th>
          <th> Status</th>
-         <th> SLE Date </th>
+         <th> SLA Date </th>
          <th> Resolve </th>
 
        </tr>

@@ -22,6 +22,7 @@ urlpatterns = [
     path('staffdashboard/',compviews.staffdashboard, name='staff-dashboard'),
     path('manager/',compviews.manager,name='manager'),
     path('mycomplaints/', compviews.mycomplaints, name='mycomplaints'),
+
     path('dashboard/<int:cmp_id>', compviews.redressal, name='complaint-redressal'),
     path('dashboard/details/<int:cmp_id>', compviews.details, name='complaint-details'),
     path('myprofile/', compviews.myprofile, name='myprofile'),

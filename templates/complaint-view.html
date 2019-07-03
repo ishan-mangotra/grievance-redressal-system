@@ -1,28 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 {% block content %}
 
   <head>
+  <link rel="stylesheet" href="{% static 'compview.css' %}">
     <meta charset="utf-8">
     <title>My Complaints</title>
-    <style>
-    table {
-     table-layout: fixed;
-     width: 100%;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     margin-bottom: 3%
-   }
-   td {
-     overflow:hidden;
-     text-overflow:ellipsis;
-     border:1px solid blue
-     }
-
-       tr:nth-child(even) {background-color: #79aec8}
-       tr:nth-child(odd) {background-color:#417690 }
-      </style>
+    
   </head>
   <body>
     <h1> My Complaints </h1>
@@ -46,16 +32,20 @@
           <form action="/dashboard/details/{{complaint.pk}}">
             <input class="resolvebutton"type="submit" value="Details">
           </form>
+          <!-- <button id="myBtn" >Open Details</button> -->
+
+
         </td>
     </tr>
     {% endfor %}
+  </table>
 
     <form action="{% url 'complaint-registration' %}">
-  	    <input type="submit" value="Register Complaint"><br/>
+  	    <input class="myButton" type="submit" value="Register Complaint"><br/>
     </form>
 
     <form action="{% url 'index' %}">
-        <input type="submit" value="HOME"><br/>
+        <input class="myButton" type="submit" value="HOME"><br/>
     </form>
 
   </body>

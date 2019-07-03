@@ -1,0 +1,18 @@
+
+.myButton {
+  background: #004a7d;
+  position: relative;
+  top: 20px;
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+  font: 12px Verdana;
+  padding: 9px 15px 9px 15px;
+  margin-left: 20px;
+  font-size: 130%;
+}
+
+label.small
+{
+  line-height: 2.7;
+}
