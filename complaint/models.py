@@ -53,5 +53,5 @@ class Complaint(models.Model):
     file = models.FileField(upload_to = 'documents/', blank=True, null=True)
 
     def token(self):
-        self.token = 'CMPLNOO'+str(self.id)
+        self.token = 'CMPO'+str(self.id)
         return self.token
