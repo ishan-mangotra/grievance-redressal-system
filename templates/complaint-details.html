@@ -5,35 +5,101 @@
   <head>
     <meta charset="utf-8">
     <title>Complaint Details</title>
+    <style>
+        tr:nth-child(even) {background-color: #79aec8}
+        tr:nth-child(odd) {background-color:#417690 }
+        table {
+         table-layout: fixed;
+         width: 80%;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         margin-bottom: 3%;
+         table-layout: fixed;
+       }
+       td {
+         overflow:hidden;
+         text-overflow:ellipsis;
+         word-wrap: break-word;
+         padding: 10px;
+       border:1px solid royalblue;
+         }
+         th {
+           overflow:hidden;
+           text-overflow:ellipsis;
+           word-wrap: break-word;
+           padding: 10px;
+         border:1px solid royalblue;
+           }
+       .myButton {
+         background: #004a7d;
+         position: relative;
+         top: 20px;
+         color: white;
+         border-radius: 50px;
+         text-decoration: none;
+         font: 12px Verdana;
+         padding: 9px 18px 9px 18px;
+         margin-left: 20px;
+         font-size: 130%;
+       }
+    </style>
   </head>
 
 
 
   <body>
     <h1>Complaint Details</h1>
-        <h3><b>Token:</b> {{comp.token}}</h3>
-        <p><b>Channel:</b> {{ comp.channel }}</p>
-        <p><b>Department:</b> {{comp.dept}}</p>
-        <p><b>Stream:</b> {{ comp.stream }}</p>
-        <p><b>Status:</b> {{comp.status}}</p>
-        <p><b>Grievance:</b> {{ comp.complaint }} </p>
-        <p><b>By</b> {{ comp.author.username }} <b> on </b> {{ comp.date }}</p>
+        <table>
+        <tr>
+        <th><h3><b>Token</b></h3></th>
+        <th><h3>{{comp.token}}</h3></th>
+        </tr>
+        <tr>
+          <td><b>Channel</b></td><td> {{ comp.channel }}</td>
+        </tr>
+        <tr>
+          <td><b>Department</b></td><td> {{comp.dept}}</td>
+        </tr>
+        <tr>
+          <td><b>Stream</b></td><td> {{ comp.stream }}</td>
+        </tr>
+        <tr>
+          <td><b>Status</b></td><td> {{comp.status}}</td>
+        </tr>
+        <tr>
+          <td><b>Grievance</b></td><td> {{ comp.complaint }} </td>
+        </tr>
+        <tr>
+          <td><b>By</b></td> <td>{{ comp.author.username }}</td>
+        </tr>
+        <tr>
+          <td><b> Complaint date </b></td>
+          <td> {{ comp.date }}</td>
+        </tr>
         {% if comp.status == 'resolved' %}
-        <p><b>Resolved by:</b> {{comp.resolved_by}}</p>
-        <p><b>Resolution:</b> {{comp.resolution}}</p>
+        <tr>
+          <td><b>Resolved by</b></td>
+          <td>{{comp.resolved_by}}</td>
+        </tr>
+        <tr>
+          <td><b>Resolution</b></td>
+          <td>{{comp.resolution}}</td>
+        </tr>
+
         {% endif %}
+        </table>
         {% if comp.image %}
           <a href ="../media/{{ comp.image }}" >Attached Image</a>
         {% endif %}
-
+        <br>
         {% if comp.file %}
           <a href= "../media/{{ comp.file }}">Attatched File</a>
         {% endif %}
-
-
-
-
-
+        <hr>
+        <a href="../../mycomplaints" class="myButton">My Complaints</a>
+        <br>
+        <br><br>
+        <hr>
   </body>
 {% endblock content %}
 
