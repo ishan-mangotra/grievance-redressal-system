@@ -9,7 +9,7 @@
    <link rel="stylesheet" href="{% static 'compdash.css' %}">
     <meta charset="utf-8">
     <title>Complaint Dashboard</title>
- 
+
   </head>
 
   <body>
@@ -254,6 +254,7 @@
       <th>DEPARTMENT</th>
       <th>RESOLVED BY</th>
       <th>REGISTRATION DETAILS</th>
+      <th>RESOLVED DATE</th>
       <th>DETAILS</th>
     </tr>
     {% for complaint in complaints_re %}
@@ -266,6 +267,7 @@
       <td>{{ complaint.dept }} </td>
       <td>{{ complaint.resolved_by }}</td>
       <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+      <td>{{ complaint.resolved_date }}</td>
 
       <td>
         <form action="/dashboard/details/{{complaint.pk}}">

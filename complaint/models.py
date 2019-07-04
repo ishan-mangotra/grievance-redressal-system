@@ -51,6 +51,7 @@ class Complaint(models.Model):
     stream = models.CharField(max_length = 25, choices = stream_choices, default = f1)
     image = models.ImageField(upload_to = 'images/', blank=True, null=True)
     file = models.FileField(upload_to = 'documents/', blank=True, null=True)
+    resolved_date = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     #Create a token for every complaint
     def token(self):
