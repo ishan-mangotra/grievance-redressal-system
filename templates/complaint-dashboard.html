@@ -110,7 +110,7 @@
         <!-- <td>{{ complaint.complaint }} </td> -->
         <td>{{ complaint.channel }} </td>
         <td>{{ complaint.dept }} </td>
-        <td>{{ complaint.resolved_by }}</td>
+        <td>{{ complaint.resolved_by }} at {{complaint.resolved_date}}</td>
         <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
         <td>{{complaint.sle_date}}</td>
         <td>
@@ -210,7 +210,7 @@
         <td>{{ complaint.channel }} </td>
         <td>{{ complaint.dept }} </td>
         <td>{{ complaint.resolved_by }}</td>
-        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
+        <td> By {{ complaint.author.username }}</td>
         <td>{{complaint.sle_date}}</td>
         <td>
           <form action="/dashboard/{{complaint.pk}}">
