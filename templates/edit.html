@@ -3,19 +3,48 @@
 <html lang="en" dir="ltr">
 
 
-
 {% block content %}
+<style>
+  table, td{
+    padding: 8px;
+    font-size: 18px;
+  }
+
+  .myButton {
+    background: #004a7d;
+    position: relative;
+    top: 20px;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font: 12px Verdana;
+    padding: 9px 15px 9px 15px;
+    margin-left: 20px;
+    font-size: 130%;
+  }
+
+</style>
+
 <div class="container">
   <form method="post">
     {%csrf_token%}
     <h1 style="font-size:60px;">Edit Profile</h1>
     <hr>
-
-    {{form.as_p}}
-    <button type="submit">Update</button>
+    <table>
+      <tr><td> Email:</td> <td> {{form.email}} </td> </tr>
+      <tr><td> Phone number: </td> <td>{{form.phone}}</td> </tr>
+      <tr><td> House Number: </td> <td>{{form.housenumber}} </td> </tr>
+      <tr><td> Locality: </td> <td>{{form.locality}} </td> </tr>
+      <tr><td> Village: </td> <td>{{form.village}} </td> </tr>
+      <tr><td> Mandal: </td> <td>{{form.mandal}} </td> </tr>
+      <tr><td> District: </td> <td>{{form.district}} </td> </tr>
+      <tr><td> Pincode: </td> <td>{{form.pincode}} </td> </tr>
+    </table>
+    <button class="myButton" type="submit">Update</button>
     <hr>
 
   </form>
+
 </div>
 {% endblock content %}
 

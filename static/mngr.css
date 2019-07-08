@@ -29,9 +29,7 @@
 }
 .number{
   width: 50%;
-  test-align: center;
-  background: #eb6213;
-  box-shadow: 2px 4px 10px 3px #eb6213;
+  text-align: center;
   padding: 1px;
   margin-top: 5%;
   color: #fff;
@@ -59,5 +57,3 @@ table.filtertab{
   width:30%;
   border:none;
 }
-
-    

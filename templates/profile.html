@@ -19,24 +19,31 @@
     margin-left: 20px;
     font-size: 130%;
   }
+  table, td{
+    padding: 8px;
+    font-size: 16px;
+  }
   </style>
   </head>
   <body>
 
     <h1> My profile    </h1>
     <hr>
-    <p> First Name: {{details.first_name}} </p>
-    <p> Last Name: {{details.last_name}} </p>
-    <p> Email: {{details.email}} </p>
-    <p> Phone number: {{details.phone}} </p>
-    <p> House Number: {{details.housenumber}} </p>
-    <p> Locality: {{details.locality}} </p>
-    <p> Village: {{details.village}} </p>
-    <p> Mandal: {{details.mandal}} </p>
-    <p> District: {{details.district}} </p>
-    <p> Pincode: {{details.pincode}} </p>
-    <a href="edit" class="myButton">Edit profile</a>
-    <a href ="edit-password" class="myButton">Change Password</a>
+    <table>
+      <tr><td> First Name:</td> <td> {{details.first_name}} </td> </tr>
+      <tr><td> Last Name: </td> <td>{{details.last_name}} </tr></td>
+      <tr><td> Email:</td> <td> {{details.email}} </td> </tr>
+      <tr><td> Phone number: </td> <td>{{details.phone}}</td> </tr>
+      <tr><td> House Number: </td> <td>{{details.housenumber}} </td> </tr>
+      <tr><td> Locality: </td> <td>{{details.locality}} </td> </tr>
+      <tr><td> Village: </td> <td>{{details.village}} </td> </tr>
+      <tr><td> Mandal: </td> <td>{{details.mandal}} </td> </tr>
+      <tr><td> District: </td> <td>{{details.district}} </td> </tr>
+      <tr><td> Pincode: </td> <td>{{details.pincode}} </td> </tr>
+    </table>
+
+    <a href="{% url 'edit' %}" class="myButton">Edit profile</a>
+    <a href ="{% url 'edit-password' %}" class="myButton">Change Password</a>
 
     <hr>
   </body>
