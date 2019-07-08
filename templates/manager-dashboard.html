@@ -177,6 +177,7 @@
 
 
     <hr>
+    <h1>Unresolved Complaints</h1>
     <table>
        <tr>
          <th> Token</th>
@@ -229,7 +230,21 @@
        {% endif %}
 
      {% endfor %}
+     </table>
 
+    <h1>Resolved Complaints</h1>
+      <table>
+      <tr>
+        <th> Token</th>
+        <th> Channel </th>
+        <th> Department </th>
+        <th> Resolved By</th>
+        <th> Registration details</th>
+        <th> Status</th>
+        <th> Resolved Date </th>
+        <th>IP</th>
+        <th> Resolve Date</th>
+      </tr>
      {% for complaint in complaints_re %}
        <tr>
 
@@ -240,13 +255,12 @@
        <td>{{ complaint.resolved_by}} at {{complaint.resolved_date}}</td>
        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
        <td>{{complaint.status}}</td>
-       <td>{{complaint.sle_date}}</td>
+       <td>{{complaint.resolved_date}}</td>
        <td>{{complaint.ip}}</td>
        <td> <form action="/dashboard/details/{{complaint.pk}}">
            <input class="resolvebutton"type="submit" value="Details">
          </form> </td>
-
-       <tr>
+       </tr>
 
      {% endfor %}
 
