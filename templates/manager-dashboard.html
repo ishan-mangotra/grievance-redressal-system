@@ -186,6 +186,7 @@
          <th> Registration details</th>
          <th> Status</th>
          <th> SLA Date </th>
+         <th>IP</th>
          <th> Resolve </th>
 
        </tr>
@@ -201,6 +202,7 @@
          <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
          <td>{{complaint.status}}</td>
          <td>{{complaint.sle_date}}</td>
+         <td>{{complaint.ip}}</td>
          <td>
            <form action="/dashboard/{{complaint.pk}}">
              <input class="resolvebutton" type="submit" value="resolve">
@@ -217,6 +219,7 @@
          <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
          <td>{{complaint.status}}</td>
          <td>{{complaint.sle_date}}</td>
+         <td>{{complaint.ip}}</td>
          <td>
            <form action="/dashboard/{{complaint.pk}}">
              <input class="resolvebutton"type="submit" value="resolve">
@@ -238,6 +241,7 @@
        <td> By {{ complaint.author.username }} at {{ complaint.date }}</td>
        <td>{{complaint.status}}</td>
        <td>{{complaint.sle_date}}</td>
+       <td>{{complaint.ip}}</td>
        <td> <form action="/dashboard/details/{{complaint.pk}}">
            <input class="resolvebutton"type="submit" value="Details">
          </form> </td>

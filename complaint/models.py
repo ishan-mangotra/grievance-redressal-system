@@ -52,6 +52,7 @@ class Complaint(models.Model):
     image = models.ImageField(upload_to = 'images/', blank=True, null=True)
     file = models.FileField(upload_to = 'documents/', blank=True, null=True)
     resolved_date = models.DateTimeField(blank=True, null=True, auto_now=True)
+    ip = models.GenericIPAddressField(blank=True,null=True)
 
     #Create a token for every complaint
     def token(self):
