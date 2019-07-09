@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 from django.core.mail import send_mail
 from django.conf import settings
 from ipware import get_client_ip
+import requests
 
 
 def get_client_ip(request):
@@ -328,6 +329,13 @@ def redressal(request, cmp_id):
            # sendmail(request,mail)
 
             comp.save()
+            url=" http://esevaonline.telangana.gov.in/smssend/services/smssend?wsdl"
+            headers = {'content-type': 'application/soap+xml'}
+            #headers = {'content-type': 'text/xml'}
+            body = 'body.xml'
+
+            response = requests.post(url,data=body,headers=headers)
+            print (response.content)
 
             return redirect('/dashboard')
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+           <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:sms="http://sms.meeseva.com">
+     <soap:Header/>
+     <soap:Body>
+        <sms:sendMessage>
+           <!--Optional:-->
+           <sms:mobileNo>{{ Complaint.author.phone }}</sms:mobileNo>
+           <!--Optional:-->
+           <sms:strMessage>Your grievance has been resolved.</sms:strMessage>
+           <!--Optional:-->
+           <sms:strPass>meesevasms#$789</sms:strPass>
+        </sms:sendMessage>
+     </soap:Body>
+  </soap:Envelope>
